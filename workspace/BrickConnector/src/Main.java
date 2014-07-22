@@ -2,25 +2,41 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import lejos.hardware.motor.EV3LargeRegulatedMotor;
+import lejos.hardware.motor.Motor;
+import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3IRSensor;
+import lejos.robotics.RegulatedMotor;
 
 public class Main {
 	public static void main(String[] args) throws RemoteException,
 			MalformedURLException, NotBoundException {
 		EV3IRSensor ir = new EV3IRSensor(SensorPort.S4);
+	     RegulatedMotor r1 = Motor.A;
+	    RegulatedMotor r2 = Motor.D;
+		try{
+		
 
 		ir.getDistanceMode();
-		float[] sample = new float[ir.sampleSize()];
-		int control = ir.getRemoteCommand(0);
 		int distance = 0;
-		while (distance < 80) {
+		int i = 0;
+		
+		while (distance>20) {
+			float[] sample = new float[ir.sampleSize()];
 			ir.fetchSample(sample, 0);
 
 			distance = (int) sample[0];
-			System.out
-					.println("Control: " + control + " Distance: " + distance);
+			System.out.println(" Distance: " + distance);
+			i++;
+			r1.forward();
+			r2.forward();
 		}
-		ir.close();
+		
+		}finally{
+			ir.close();	
+			r1.close();
+			r2.close();
+		}
 	}
 }
