@@ -1,6 +1,9 @@
 package com.tomtom.lejos;
 
+import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import lejos.hardware.Button;
 import lejos.hardware.ev3.LocalEV3;
@@ -15,10 +18,11 @@ public class MotorRunner {
 
 	private static final int _90degrees = 475;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		RegulatedMotor r1 = new EV3LargeRegulatedMotor(MotorPort.A);
 		RegulatedMotor r2 = new EV3LargeRegulatedMotor(MotorPort.C);
 		EV3IRSensor ir = new EV3IRSensor(SensorPort.S4);
+		SocketServer ss = connect();
 		try {
 
 			ir.getDistanceMode();
@@ -29,8 +33,8 @@ public class MotorRunner {
 					r2.forward();
 					float[] sample = new float[ir.sampleSize()];
 					ir.fetchSample(sample, 0);
-
 					distance = (int) sample[0];
+					ss.sendAndReceive("dist: "+distance);
 					GraphicsLCD g = LocalEV3.get().getGraphicsLCD();
 					g.drawString("Distance:" + distance, 5, 0, 0);
 				}
@@ -53,19 +57,25 @@ public class MotorRunner {
 		}
 	}
 
-//
-//	public static void main(String[] args) {
-//		RegulatedMotor r1 = new EV3LargeRegulatedMotor(MotorPort.A);
-//		RegulatedMotor r2 = new EV3LargeRegulatedMotor(MotorPort.C);
-//		EV3IRSensor ir = new EV3IRSensor(SensorPort.S4);
-//		try {
-//			int angle = _90degrees;
-//			r1.rotate(angle , true);
-//			r2.rotate(-angle);
-//		} finally {
-//			ir.close();
-//			r1.close();
-//			r2.close();
-//		}
-//	}
+	private static SocketServer connect() {
+		int port = 6666;
+        int timeout = 30000;
+        SocketServer ss = null;
+
+        try {
+            ss = new SocketServer(port, timeout);
+        } catch (IOException ex) {
+            Logger.getLogger(SocketServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            ss.connect();
+        } catch (java.net.SocketTimeoutException ex) {
+            Logger.getLogger(ex.toString());
+        } catch (IOException ex) {
+            Logger.getLogger(SocketServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ss;
+	}
+
 }
