@@ -6,11 +6,14 @@ import lejos.hardware.Button;
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.lcd.GraphicsLCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
-import lejos.hardware.port.MotorPort;import lejos.hardware.port.SensorPort;
+import lejos.hardware.port.MotorPort;
+import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3IRSensor;
 import lejos.robotics.RegulatedMotor;
 
 public class MotorRunner {
+
+	private static final int _90degrees = 475;
 
 	public static void main(String[] args) {
 		RegulatedMotor r1 = new EV3LargeRegulatedMotor(MotorPort.A);
@@ -34,14 +37,13 @@ public class MotorRunner {
 				if (Button.ESCAPE.isDown()) {
 					break;
 				}
-				r1.stop();
+				r1.stop(true);
 				r2.stop();
-				
-				int leftLimit = -360;
-			    int rightLimit = 360;
-			    int generatedInteger = leftLimit + (int) (new Random().nextFloat() * (rightLimit - leftLimit));
-				r1.rotate(generatedInteger);
-				r2.rotate(-1*generatedInteger);
+
+				int sng = new Random().nextBoolean() ? 1 : -1;
+				int generatedInteger = sng * _90degrees;
+				r1.rotate(generatedInteger, true);
+				r2.rotate(-generatedInteger);
 				distance = 21;
 			}
 		} finally {
@@ -51,4 +53,19 @@ public class MotorRunner {
 		}
 	}
 
+//
+//	public static void main(String[] args) {
+//		RegulatedMotor r1 = new EV3LargeRegulatedMotor(MotorPort.A);
+//		RegulatedMotor r2 = new EV3LargeRegulatedMotor(MotorPort.C);
+//		EV3IRSensor ir = new EV3IRSensor(SensorPort.S4);
+//		try {
+//			int angle = _90degrees;
+//			r1.rotate(angle , true);
+//			r2.rotate(-angle);
+//		} finally {
+//			ir.close();
+//			r1.close();
+//			r2.close();
+//		}
+//	}
 }
