@@ -60,9 +60,9 @@ public class SocketClient {
             sc.connect();
 
             while(true){
-                sc.sendMessage("forward");
-                sc.sendMessage("backward");
-                Thread.sleep(1000);
+                sc.sendMessage("hello");
+ //               sc.sendMessage("backward");
+                Thread.sleep(100);
             }
         } catch (IOException e) {
             e.printStackTrace();
