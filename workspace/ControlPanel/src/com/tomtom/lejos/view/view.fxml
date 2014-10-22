@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="963.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tomtom.lejos.view.Controller">
+   <children>
+      <ImageView fitHeight="672.0" fitWidth="1075.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../LEGO%20Mindstorms/Tapety/bluedoor_1920x1200.jpg" />
+         </image>
+         <effect>
+            <ColorAdjust brightness="-0.32" contrast="-0.17" saturation="-1.0" />
+         </effect>
+      </ImageView>
+      <AnchorPane fx:id="buttonsPane" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="upButton" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="31.0" onMouseEntered="#setButtonEffect" onMouseExited="#removeAllButtonsEffects" onMouseReleased="#upAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../Grafika/Paint.NET/arrowButton/arrowButtonTop.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
