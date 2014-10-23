@@ -17,5 +17,10 @@ public class BackwardCommand implements Command {
 		context.getLeftMotor().rotate(-180, true);
 		context.getRightMotor().rotate(-180);
 	}
+	@Override
+	public void setParams(String[] params) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -1,6 +1,7 @@
 package com.tomtom.lejos.stefan;
 
 import java.io.IOException;
+import java.net.SocketException;
 
 import com.tomtom.lejos.stefan.command.BackwardCommand;
 import com.tomtom.lejos.stefan.command.BrickContext;
@@ -13,29 +14,42 @@ import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 
 public class Main {
+	private static final int TIMEOUT = 300000;
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
 		BrickContext context = new BrickContext();
+		SocketPortPool pool = new SocketPortPool();
 		CommandsProvider commandProvider = new CommandsProvider();
 		commandProvider.registerCommand("forward", new ForwardCommand(context));
-		commandProvider.registerCommand("backward", new BackwardCommand(context));
+		commandProvider.registerCommand("backward",
+				new BackwardCommand(context));
 		commandProvider.registerCommand("hello", new HelloCommand(context));
-		SocketServer server = new SocketServer(6666, 300000);
+		SocketServer server = new SocketServer(pool.getPort(), TIMEOUT);
 		server.connect();
-		
 		while (true) {
-			Thread.sleep(1000);
-			String message = server.receive();
-			if (message != null) {
-				Command command = commandProvider.getCommand(message);
-				if (command!=null){
-					command.executeCommand();
-				}else{
-					LCD.drawString("Unknown command", 0, 0);
+			try {
+				Thread.sleep(1000);
+				String message = server.receive();
+				if (message != null) {
+					String[] payload = message.split(":");
+					Command command = commandProvider.getCommand(payload[0]);
+					String[] params = payload[1].split(",");
+					command.setParams(params);
+					if (command == null) {
+						LCD.drawString("Unknown command", 0, 0);
+					} else {
+						command.executeCommand();
+					}
 				}
-			}
-			if (Button.ESCAPE.isDown()) {
-				break;
+				if (Button.ESCAPE.isDown()) {
+					break;
+				}
+			} catch (SocketException e) {
+				server.connectionLost();
+				server = new SocketServer(pool.getPort(), 300000);
+				server.connect();
+				continue;
+				
 			}
 		}
 	}

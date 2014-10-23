@@ -22,9 +22,15 @@ public class HelloCommand implements Command{
 			Thread.sleep(100);
 			Button.LEDPattern(5);
 			Thread.sleep(100);
-			Sound.playTone(500, 100);//(new File("waves/test.wav"));
+			//Sound.playTone(500, 100);//(new File("waves/test.wav"));
 			
 		}
+		
+	}
+
+	@Override
+	public void setParams(String[] params) {
+		// TODO Auto-generated method stub
 		
 	}
 

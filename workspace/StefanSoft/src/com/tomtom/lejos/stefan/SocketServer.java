@@ -50,8 +50,10 @@ public class SocketServer {
         return server == null ? "null" : "not null";
     }
 
-    public void connectionLost() {
-        server = null;
+    public void connectionLost() throws IOException {
+    	server.close();
+    	//server = null;
+        
     }
 
     public String receive() throws IOException{
