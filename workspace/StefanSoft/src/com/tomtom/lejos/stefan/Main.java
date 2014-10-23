@@ -3,12 +3,12 @@ package com.tomtom.lejos.stefan;
 import java.io.IOException;
 import java.net.SocketException;
 
-import com.tomtom.lejos.stefan.command.BackwardCommand;
 import com.tomtom.lejos.stefan.command.BrickContext;
 import com.tomtom.lejos.stefan.command.Command;
 import com.tomtom.lejos.stefan.command.CommandsProvider;
 import com.tomtom.lejos.stefan.command.ForwardCommand;
 import com.tomtom.lejos.stefan.command.HelloCommand;
+import com.tomtom.lejos.stefan.command.TurnCommand;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
@@ -20,10 +20,9 @@ public class Main {
 		BrickContext context = new BrickContext();
 		SocketPortPool pool = new SocketPortPool();
 		CommandsProvider commandProvider = new CommandsProvider();
-		commandProvider.registerCommand("forward", new ForwardCommand(context));
-		commandProvider.registerCommand("backward",
-				new BackwardCommand(context));
-		commandProvider.registerCommand("hello", new HelloCommand(context));
+		commandProvider.registerCommand("forward", new ForwardCommand());
+		commandProvider.registerCommand("turn", new TurnCommand());
+		commandProvider.registerCommand("hello", new HelloCommand());
 		SocketServer server = new SocketServer(pool.getPort(), TIMEOUT);
 		server.connect();
 		while (true) {
@@ -38,7 +37,7 @@ public class Main {
 					if (command == null) {
 						LCD.drawString("Unknown command", 0, 0);
 					} else {
-						command.executeCommand();
+						command.executeCommand(context);
 					}
 				}
 				if (Button.ESCAPE.isDown()) {

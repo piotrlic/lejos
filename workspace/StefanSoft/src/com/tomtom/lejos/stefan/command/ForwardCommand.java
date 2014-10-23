@@ -2,13 +2,10 @@ package com.tomtom.lejos.stefan.command;
 
 
 public class ForwardCommand implements Command {
-	private BrickContext context;
+
 	private int distance;
-	public ForwardCommand(BrickContext context){
-		this.context = context;
-	}
 	@Override
-	public void executeCommand() {
+	public void executeCommand(BrickContext context) {
 
 		context.getLeftMotor().rotate(distance, true);
 		context.getRightMotor().rotate(distance);

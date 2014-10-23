@@ -7,14 +7,8 @@ import lejos.hardware.Sound;
 
 public class HelloCommand implements Command{
 
-	private BrickContext context;
-
-	public HelloCommand(BrickContext context) {
-		this.context = context;
-	}
-
 	@Override
-	public void executeCommand() throws InterruptedException {
+	public void executeCommand(BrickContext context) throws InterruptedException {
 		for (int i = 0; i < 2; i++) {
 			Button.LEDPattern(6);
 			Thread.sleep(100);
