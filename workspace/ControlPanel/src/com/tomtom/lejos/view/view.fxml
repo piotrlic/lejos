@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -12,7 +14,7 @@
             <Image url="@../../../../../resources/bluedoor_1920x1200.jpg" />
          </image>
          <effect>
-            <ColorAdjust brightness="-0.32" contrast="-0.17" saturation="-1.0" />
+            <ColorAdjust brightness="-0.32" contrast="-0.17" hue="0.02" saturation="-0.61" />
          </effect>
       </ImageView>
       <AnchorPane fx:id="buttonsPane" prefHeight="200.0" prefWidth="200.0">
@@ -51,6 +53,26 @@
                   </ImageView>
                </children>
             </GridPane>
+            <Label layoutX="627.0" layoutY="103.0" text="X" textFill="#c0dae5">
+               <font>
+                  <Font name="Calibri" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="700.0" layoutY="103.0" text="Y" textFill="#c0dae5">
+               <font>
+                  <Font name="Calibri" size="24.0" />
+               </font>
+            </Label>
+            <TextField layoutX="681.0" layoutY="131.0" prefHeight="31.0" prefWidth="50.0">
+               <effect>
+                  <InnerShadow choke="0.23" color="#838383" height="40.0" radius="19.5" width="40.0" />
+               </effect>
+            </TextField>
+            <TextField layoutX="609.0" layoutY="131.0" prefHeight="31.0" prefWidth="50.0">
+               <effect>
+                  <InnerShadow choke="0.23" color="#838383" height="40.0" radius="19.5" width="40.0" />
+               </effect>
+            </TextField>
          </children>
       </AnchorPane>
    </children>

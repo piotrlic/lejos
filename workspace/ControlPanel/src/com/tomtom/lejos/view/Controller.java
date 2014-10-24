@@ -40,9 +40,9 @@ public class Controller {
 		this.pressedEffect = new InnerShadow();
 		this.pressedEffect.setBlurType(BlurType.GAUSSIAN);
 		this.pressedEffect.setChoke(0.2);
-		this.pressedEffect.setColor(Color.web("#47aaff"));
-		this.pressedEffect.setWidth(50.0);
-		this.pressedEffect.setHeight(50.0);
+		this.pressedEffect.setColor(Color.web("#5F9BB5"));
+		this.pressedEffect.setWidth(40.0);
+		this.pressedEffect.setHeight(40.0);
 		this.pressedEffect.setInput(enterEffect);
 	}
 	
