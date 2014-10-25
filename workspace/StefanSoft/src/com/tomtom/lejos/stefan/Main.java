@@ -11,6 +11,7 @@ import com.tomtom.lejos.stefan.command.DriveBackwardCommand;
 import com.tomtom.lejos.stefan.command.DriveForwardCommand;
 import com.tomtom.lejos.stefan.command.FireCommand;
 import com.tomtom.lejos.stefan.command.ForwardCommand;
+import com.tomtom.lejos.stefan.command.GotoCommand;
 import com.tomtom.lejos.stefan.command.HelloCommand;
 import com.tomtom.lejos.stefan.command.StopCommand;
 import com.tomtom.lejos.stefan.command.TurnLeftCommand;
@@ -34,6 +35,7 @@ public class Main {
 		commandProvider.registerCommand(new StopCommand());
 		commandProvider.registerCommand(new HelloCommand());
 		commandProvider.registerCommand(new FireCommand());
+		commandProvider.registerCommand(new GotoCommand());
 		SocketServer server = new SocketServer(pool.getPort(), TIMEOUT);
 		server.connect();
 		while (true) {

@@ -67,8 +67,10 @@ public class SocketClient {
                 Thread.sleep(2000);
                 sc.sendMessage("STOP");
                 Thread.sleep(1000);*/
-                sc.sendMessage("HELLO");
-                
+                //sc.sendMessage("HELLO");
+                sc.sendMessage("GOTO:10,10");
+                sc.sendMessage("GOTO:10,-10");
+                sc.sendMessage("GOTO:0,0");
                 Thread.sleep(5000);
             }
         } catch (IOException e) {
