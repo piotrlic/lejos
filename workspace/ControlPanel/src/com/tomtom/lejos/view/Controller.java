@@ -2,10 +2,7 @@ package com.tomtom.lejos.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.effect.Bloom;
 import javafx.scene.effect.BlurType;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
@@ -48,22 +45,22 @@ public class Controller {
 	
 	@FXML
 	public void upAction(MouseEvent mouseEvent) {
-		releasePressedButtonEffect(mouseEvent);
+		setPressedButtonEffect(mouseEvent);
 		model.forward();
 	}
 	@FXML
 	public void downAction(MouseEvent mouseEvent) {
-		releasePressedButtonEffect(mouseEvent);
+		setPressedButtonEffect(mouseEvent);
 		model.backward();
 	}
 	@FXML
 	public void leftAction(MouseEvent mouseEvent) {
-		releasePressedButtonEffect(mouseEvent);
+		setPressedButtonEffect(mouseEvent);
 		model.left();
 	}
 	@FXML
 	public void rightAction(MouseEvent mouseEvent) {
-		releasePressedButtonEffect(mouseEvent);
+		setPressedButtonEffect(mouseEvent);
 		model.right();
 	}
 	

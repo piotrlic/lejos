@@ -31,22 +31,22 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <ImageView fx:id="leftButton" fitHeight="36.0" fitWidth="36.0" layoutX="414.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#setPressedButtonEffect" onMouseReleased="#leftAction" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                  <ImageView fx:id="leftButton" fitHeight="36.0" fitWidth="36.0" layoutX="414.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#leftAction" onMouseReleased="#releasePressedButtonEffect" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                      <image>
                         <Image url="@../../../../../resources/arrowButtonLeft.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="downButton" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="87.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#setPressedButtonEffect" onMouseReleased="#downAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <ImageView fx:id="downButton" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="87.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#downAction" onMouseReleased="#releasePressedButtonEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <image>
                         <Image url="@../../../../../resources/arrowButtonDown.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="upButton" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="31.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#setPressedButtonEffect" onMouseReleased="#upAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                  <ImageView fx:id="upButton" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="31.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#upAction" onMouseReleased="#releasePressedButtonEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                      <image>
                         <Image url="@../../../../../resources/arrowButtonTop.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="rightButton" fitHeight="36.0" fitWidth="36.0" layoutX="516.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#setPressedButtonEffect" onMouseReleased="#rightAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <ImageView fx:id="rightButton" fitHeight="36.0" fitWidth="36.0" layoutX="516.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#rightAction" onMouseReleased="#releasePressedButtonEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <image>
                         <Image url="@../../../../../resources/arrowButtonRight.png" />
                      </image>
