@@ -17,5 +17,9 @@ public class Model {
 	public void right() {
 		System.out.println("let's go right");
 	}
+	
+	public void stop() {
+		System.out.println("stop");
+	}
 
 }

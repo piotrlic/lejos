@@ -71,9 +71,10 @@ public class Controller {
 	}
 	
 	@FXML
-	public void releasePressedButtonEffect(MouseEvent mouseEvent) {
+	public void stopAction(MouseEvent mouseEvent) {
 		Node target = (Node)mouseEvent.getTarget();
 		target.setEffect(pressedEffect.getInput());
+		model.stop();
 	}
 	
 	@FXML
