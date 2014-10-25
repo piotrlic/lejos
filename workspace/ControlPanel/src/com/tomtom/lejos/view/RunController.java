@@ -17,7 +17,9 @@ public class RunController extends Application{
 	private static Model model;
 	
 	public static void main(String[] args) {
-		model = new Model();
+		String serverName = args[0];
+		int port = Integer.parseInt(args[1]);
+		model = new Model(serverName, port);
 		launch(args);
 	}
 	

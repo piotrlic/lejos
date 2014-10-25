@@ -1,25 +1,36 @@
 package com.tomtom.lejos.model;
 
+import java.io.IOException;
+
+import com.tomtom.lejos.SocketClient;
+
 public class Model {
 
-	public void forward() {
-		System.out.println("let's go forward");
+	private SocketClient socketClient;
+	
+	public Model(String serverName, int port) {
+		socketClient = new SocketClient(serverName, port);
 	}
 	
-	public void backward() {
-		System.out.println("let's go backward");
+	public void forward() throws IOException {
+        socketClient.sendMessage("DRIVE_F");
 	}
 	
-	public void left() {
-		System.out.println("let's go left");
+	public void backward() throws IOException {
+		socketClient.sendMessage("DRIVE_B");
 	}
 	
-	public void right() {
-		System.out.println("let's go right");
+	public void left() throws IOException {
+        socketClient.sendMessage("TURN:-90");
 	}
 	
-	public void stop() {
-		System.out.println("stop");
+	public void right() throws IOException {
+		socketClient.sendMessage("TURN:90");
+	}
+	
+	public void stop() throws IOException {
+        socketClient.sendMessage("STOP");
+
 	}
 
 }
