@@ -8,8 +8,9 @@ public class Model {
 
 	private SocketClient socketClient;
 	
-	public Model(String serverName, int port) {
+	public Model(String serverName, int port) throws IOException {
 		socketClient = new SocketClient(serverName, port);
+		socketClient.connect();
 	}
 	
 	public void forward() throws IOException {

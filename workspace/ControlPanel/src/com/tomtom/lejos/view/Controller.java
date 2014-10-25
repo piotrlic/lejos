@@ -1,5 +1,7 @@
 package com.tomtom.lejos.view;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.effect.BlurType;
@@ -44,22 +46,22 @@ public class Controller {
 	}
 	
 	@FXML
-	public void upAction(MouseEvent mouseEvent) {
+	public void upAction(MouseEvent mouseEvent) throws IOException {
 		setPressedButtonEffect(mouseEvent);
 		model.forward();
 	}
 	@FXML
-	public void downAction(MouseEvent mouseEvent) {
+	public void downAction(MouseEvent mouseEvent) throws IOException {
 		setPressedButtonEffect(mouseEvent);
 		model.backward();
 	}
 	@FXML
-	public void leftAction(MouseEvent mouseEvent) {
+	public void leftAction(MouseEvent mouseEvent) throws IOException {
 		setPressedButtonEffect(mouseEvent);
 		model.left();
 	}
 	@FXML
-	public void rightAction(MouseEvent mouseEvent) {
+	public void rightAction(MouseEvent mouseEvent) throws IOException {
 		setPressedButtonEffect(mouseEvent);
 		model.right();
 	}
@@ -71,7 +73,7 @@ public class Controller {
 	}
 	
 	@FXML
-	public void stopAction(MouseEvent mouseEvent) {
+	public void stopAction(MouseEvent mouseEvent) throws IOException {
 		Node target = (Node)mouseEvent.getTarget();
 		target.setEffect(pressedEffect.getInput());
 		model.stop();
