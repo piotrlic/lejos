@@ -20,5 +20,9 @@ public class ForwardCommand implements Command {
 	public void setParams(String[] params) {
 		distance = Integer.parseInt(params[0]);
 	}
+	@Override
+	public CommandName getCommandName() {
+		return CommandName.FORWARD;
+	}
 	
 }

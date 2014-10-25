@@ -60,10 +60,12 @@ public class SocketClient {
             sc.connect();
 
             while(true){
-                sc.sendMessage("forward:180");
-                sc.sendMessage("forward:-90");
-                sc.sendMessage("turn:90");
-                sc.sendMessage("turn:-90");
+                /*sc.sendMessage("FORWARD:180");
+                sc.sendMessage("FORWARD:-90");
+                sc.sendMessage("TURN:-90");*/
+                sc.sendMessage("DRIVE");
+                Thread.sleep(5000);
+                sc.sendMessage("STOP");
                 Thread.sleep(5000);
             }
         } catch (IOException e) {

@@ -28,4 +28,9 @@ public class HelloCommand implements Command{
 		
 	}
 
+	@Override
+	public CommandName getCommandName() {
+		return CommandName.HELLO;
+	}
+
 }

@@ -5,9 +5,12 @@ import java.net.SocketException;
 
 import com.tomtom.lejos.stefan.command.BrickContext;
 import com.tomtom.lejos.stefan.command.Command;
+import com.tomtom.lejos.stefan.command.CommandName;
 import com.tomtom.lejos.stefan.command.CommandsProvider;
+import com.tomtom.lejos.stefan.command.DriveCommand;
 import com.tomtom.lejos.stefan.command.ForwardCommand;
 import com.tomtom.lejos.stefan.command.HelloCommand;
+import com.tomtom.lejos.stefan.command.StopCommand;
 import com.tomtom.lejos.stefan.command.TurnCommand;
 
 import lejos.hardware.Button;
@@ -20,9 +23,11 @@ public class Main {
 		BrickContext context = new BrickContext();
 		SocketPortPool pool = new SocketPortPool();
 		CommandsProvider commandProvider = new CommandsProvider();
-		commandProvider.registerCommand("forward", new ForwardCommand());
-		commandProvider.registerCommand("turn", new TurnCommand());
-		commandProvider.registerCommand("hello", new HelloCommand());
+		commandProvider.registerCommand(new ForwardCommand());
+		commandProvider.registerCommand(new TurnCommand());
+		commandProvider.registerCommand(new DriveCommand());
+		commandProvider.registerCommand(new StopCommand());
+		commandProvider.registerCommand(new HelloCommand());
 		SocketServer server = new SocketServer(pool.getPort(), TIMEOUT);
 		server.connect();
 		while (true) {
@@ -31,9 +36,12 @@ public class Main {
 				String message = server.receive();
 				if (message != null) {
 					String[] payload = message.split(":");
-					Command command = commandProvider.getCommand(payload[0]);
-					String[] params = payload[1].split(",");
-					command.setParams(params);
+					Command command = commandProvider.getCommand(CommandName.valueOf(payload[0]));
+					if(payload.length>1){
+						String[] params = payload[1].split(",");
+						command.setParams(params);
+					}
+					
 					if (command == null) {
 						LCD.drawString("Unknown command", 0, 0);
 					} else {

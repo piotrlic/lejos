@@ -8,3 +8,4 @@ workspace/MotorRunner/MotorRunner.jar
 workspace/Driver/RunnerWithSensor2.jar
 workspace/Driver/Runner.jar
 workspace/Driver/ColorRecognizer3.jar
+workspace/BrickSocketServer/SocketServer.jar

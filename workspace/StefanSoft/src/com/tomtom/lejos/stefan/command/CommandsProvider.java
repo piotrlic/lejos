@@ -5,11 +5,11 @@ import java.util.Map;
 
 public class CommandsProvider {
 	
-	private Map<String, Command> commands = new HashMap<String, Command>();
-	public void registerCommand(String commandName,Command command){
-		commands.put(commandName, command);
+	private Map<CommandName, Command> commands = new HashMap<CommandName, Command>();
+	public void registerCommand(Command command){
+		commands.put(command.getCommandName(), command);
 	}
-	public Command getCommand(String commandName){
+	public Command getCommand(CommandName commandName){
 		return commands.get(commandName);
 	}
 }

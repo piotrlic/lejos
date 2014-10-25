@@ -4,4 +4,6 @@ public interface Command {
 	void executeCommand(BrickContext context) throws InterruptedException;
 
 	void setParams(String[] params);
+	
+	CommandName getCommandName();
 }

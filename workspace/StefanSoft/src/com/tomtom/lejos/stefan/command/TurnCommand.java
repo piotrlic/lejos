@@ -18,6 +18,10 @@ public class TurnCommand implements Command {
 	public void setParams(String[] params) {
 		angle = Integer.parseInt(params[0]);
 	}
+	@Override
+	public CommandName getCommandName() {
+		return CommandName.TURN;
+	}
 	
 
 }
