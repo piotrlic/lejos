@@ -7,7 +7,9 @@ import com.tomtom.lejos.stefan.command.BrickContext;
 import com.tomtom.lejos.stefan.command.Command;
 import com.tomtom.lejos.stefan.command.CommandName;
 import com.tomtom.lejos.stefan.command.CommandsProvider;
-import com.tomtom.lejos.stefan.command.DriveCommand;
+import com.tomtom.lejos.stefan.command.DriveBackwardCommand;
+import com.tomtom.lejos.stefan.command.DriveForwardCommand;
+import com.tomtom.lejos.stefan.command.FireCommand;
 import com.tomtom.lejos.stefan.command.ForwardCommand;
 import com.tomtom.lejos.stefan.command.HelloCommand;
 import com.tomtom.lejos.stefan.command.StopCommand;
@@ -25,9 +27,11 @@ public class Main {
 		CommandsProvider commandProvider = new CommandsProvider();
 		commandProvider.registerCommand(new ForwardCommand());
 		commandProvider.registerCommand(new TurnCommand());
-		commandProvider.registerCommand(new DriveCommand());
+		commandProvider.registerCommand(new DriveForwardCommand());
+		commandProvider.registerCommand(new DriveBackwardCommand());
 		commandProvider.registerCommand(new StopCommand());
 		commandProvider.registerCommand(new HelloCommand());
+		commandProvider.registerCommand(new FireCommand());
 		SocketServer server = new SocketServer(pool.getPort(), TIMEOUT);
 		server.connect();
 		while (true) {

@@ -1,27 +1,25 @@
 package com.tomtom.lejos.stefan.command;
 
-import lejos.hardware.Button;
-import lejos.hardware.Sound;
+import java.sql.Driver;
 
-public class FireCommand implements Command {
+public class DriveBackwardCommand implements Command {
 
 	@Override
 	public void executeCommand(BrickContext context)
 			throws InterruptedException {
-		Button.LEDPattern(6);
-		Sound.playTone(500, 100);
+		context.getLeftMotor().backward();		
+		context.getRightMotor().backward();
 		
 	}
 
 	@Override
 	public void setParams(String[] params) {
-		// TODO Auto-generated method stub
-
+		// no params
 	}
 
 	@Override
 	public CommandName getCommandName() {
-		return CommandName.FIRE;
+		return CommandName.DRIVE_B;
 	}
-
+	
 }

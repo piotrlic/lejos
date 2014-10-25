@@ -1,7 +1,7 @@
 package com.tomtom.lejos.stefan.command;
 
 
-public class DriveCommand implements Command {
+public class DriveForwardCommand implements Command {
 
 	@Override
 	public void executeCommand(BrickContext context)
@@ -18,7 +18,7 @@ public class DriveCommand implements Command {
 
 	@Override
 	public CommandName getCommandName() {
-		return CommandName.DRIVE;
+		return CommandName.DRIVE_F;
 	}
 
 }
