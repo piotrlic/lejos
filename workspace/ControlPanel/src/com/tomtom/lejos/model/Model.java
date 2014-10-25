@@ -22,11 +22,11 @@ public class Model {
 	}
 	
 	public void left() throws IOException {
-        socketClient.sendMessage("TURN:-90");
+        socketClient.sendMessage("TURN_LEFT");
 	}
 	
 	public void right() throws IOException {
-		socketClient.sendMessage("TURN:90");
+		socketClient.sendMessage("TURN_RIGHT");
 	}
 	
 	public void stop() throws IOException {

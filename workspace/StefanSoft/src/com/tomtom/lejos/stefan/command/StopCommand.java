@@ -8,6 +8,19 @@ public class StopCommand implements Command{
 	@Override
 	public void executeCommand(final BrickContext context)
 			throws InterruptedException {
+		//runInThreads(context);
+		run(context);
+			
+		
+	}
+
+	private void run(BrickContext context) {
+		 context.getRightMotor().stop(true);
+		 context.getLeftMotor().stop();
+	}
+
+	private void runInThreads(final BrickContext context)
+			throws InterruptedException {
 		final CyclicBarrier gate = new CyclicBarrier(3);
 
 		Thread t1 = new Thread(){
@@ -44,9 +57,6 @@ public class StopCommand implements Command{
 			e.printStackTrace();
 		}
 		System.out.println("all threads started");
-		
-			
-		
 	}
 
 	@Override

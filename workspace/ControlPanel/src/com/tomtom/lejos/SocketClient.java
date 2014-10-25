@@ -63,11 +63,12 @@ public class SocketClient {
                 /*sc.sendMessage("FORWARD:180");
                 sc.sendMessage("FORWARD:-90");
                 sc.sendMessage("TURN:-90");*/
-                sc.sendMessage("DRIVE_F");
+                /*sc.sendMessage("DRIVE_F");
                 Thread.sleep(2000);
                 sc.sendMessage("STOP");
-                Thread.sleep(1000);
-                sc.sendMessage("FIRE");
+                Thread.sleep(1000);*/
+                sc.sendMessage("HELLO");
+                
                 Thread.sleep(5000);
             }
         } catch (IOException e) {

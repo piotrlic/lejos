@@ -13,7 +13,8 @@ import com.tomtom.lejos.stefan.command.FireCommand;
 import com.tomtom.lejos.stefan.command.ForwardCommand;
 import com.tomtom.lejos.stefan.command.HelloCommand;
 import com.tomtom.lejos.stefan.command.StopCommand;
-import com.tomtom.lejos.stefan.command.TurnCommand;
+import com.tomtom.lejos.stefan.command.TurnLeftCommand;
+import com.tomtom.lejos.stefan.command.TurnRightCommand;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
@@ -26,7 +27,8 @@ public class Main {
 		SocketPortPool pool = new SocketPortPool();
 		CommandsProvider commandProvider = new CommandsProvider();
 		commandProvider.registerCommand(new ForwardCommand());
-		commandProvider.registerCommand(new TurnCommand());
+		commandProvider.registerCommand(new TurnLeftCommand());
+		commandProvider.registerCommand(new TurnRightCommand());
 		commandProvider.registerCommand(new DriveForwardCommand());
 		commandProvider.registerCommand(new DriveBackwardCommand());
 		commandProvider.registerCommand(new StopCommand());
