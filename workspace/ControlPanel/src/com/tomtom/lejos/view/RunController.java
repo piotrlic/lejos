@@ -17,6 +17,8 @@ public class RunController extends Application{
 	private static Model model;
 	
 	public static void main(String[] args) throws IOException {
+//		String serverName = "";
+//		int port = 0;
 		String serverName = args[0];
 		int port = Integer.parseInt(args[1]);
 		model = new Model(serverName, port);
@@ -25,7 +27,6 @@ public class RunController extends Application{
 	
 	@Override
 	public void start(Stage mainStage) throws Exception {
-		
 		Parent sceneGraph = createSceneGraph(model);
 		Scene scene = new Scene(sceneGraph);
 		mainStage.setScene(scene);

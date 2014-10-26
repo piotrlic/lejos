@@ -7,10 +7,9 @@ import java.io.IOException;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
-import java.io.IOException;
-
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.InnerShadow;
@@ -37,12 +36,16 @@ public class Controller {
 	private ImageView rightButton;
 	@FXML
 	private Pane buttonsPane;
-
+	@FXML
+	private ImageView camView;
+	@FXML
+	private TextField xTextField;
+	@FXML
+	private TextField yTextField;
+	
 	private Glow enterEffect;
 
 	private InnerShadow pressedEffect;
-
-	private ImageView camView;
 
 	public void setModel(Model model) {
 		this.model = model;
@@ -54,8 +57,6 @@ public class Controller {
 		this.pressedEffect.setWidth(40.0);
 		this.pressedEffect.setHeight(40.0);
 		this.pressedEffect.setInput(enterEffect);
-
-		camView = new ImageView();
 
 		Task<Void> task = new Task<Void>() {
 
@@ -81,8 +82,6 @@ public class Controller {
 		Thread thread = new Thread(task);
 		thread.setDaemon(true);
 		thread.start();
-
-		buttonsPane.getChildren().add(camView);
 	}
 
 	@FXML
@@ -108,6 +107,16 @@ public class Controller {
 		setPressedButtonEffect(mouseEvent);
 		model.right();
 	}
+	
+	@FXML
+	public void gotoAction(MouseEvent mouseEvent) throws IOException {
+		setPressedButtonEffect(mouseEvent);
+		try {
+			model.gotoAction(xTextField.getText(), yTextField.getText());
+		} catch (NumberFormatException ex) {
+			System.out.println("Unparsaplne input for go to function: " + xTextField.getText() + "  ,  " + yTextField.getText());
+		}
+	}
 
 	@FXML
 	public void setPressedButtonEffect(MouseEvent mouseEvent) {
@@ -117,9 +126,14 @@ public class Controller {
 
 	@FXML
 	public void stopAction(MouseEvent mouseEvent) throws IOException {
+		releaseButtonEffect(mouseEvent);
+		model.stop();
+	}
+
+	@FXML
+	private void releaseButtonEffect(MouseEvent mouseEvent) {
 		Node target = (Node) mouseEvent.getTarget();
 		target.setEffect(pressedEffect.getInput());
-		model.stop();
 	}
 
 	@FXML

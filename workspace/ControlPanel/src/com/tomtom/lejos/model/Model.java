@@ -34,4 +34,10 @@ public class Model {
 
 	}
 
+	public void gotoAction(String x, String y) throws NumberFormatException{
+		int ix = Integer.parseInt(x);
+		int iy = Integer.parseInt(y);
+		System.out.println("Go to point: " + ix + " , " + iy);
+	}
+
 }

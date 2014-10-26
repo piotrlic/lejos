@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -17,7 +18,7 @@
             <ColorAdjust brightness="-0.32" contrast="-0.17" hue="0.02" saturation="-0.61" />
          </effect>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="camView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
             <GridPane layoutX="428.0" layoutY="111.0" AnchorPane.leftAnchor="428.0" AnchorPane.rightAnchor="427.0">
@@ -54,26 +55,36 @@
                   </ImageView>
                </children>
             </GridPane>
-            <Label layoutX="627.0" layoutY="103.0" text="X" textFill="#c0dae5">
+            <Label layoutX="627.0" layoutY="103.0" text="X" textFill="WHITE">
                <font>
                   <Font name="Calibri" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="700.0" layoutY="103.0" text="Y" textFill="#c0dae5">
+            <Label layoutX="700.0" layoutY="103.0" text="Y" textFill="WHITE">
                <font>
                   <Font name="Calibri" size="24.0" />
                </font>
             </Label>
-            <TextField layoutX="681.0" layoutY="131.0" prefHeight="31.0" prefWidth="50.0">
+            <TextField fx:id="yTextField" layoutX="681.0" layoutY="131.0" prefHeight="31.0" prefWidth="50.0">
                <effect>
                   <InnerShadow choke="0.23" color="#838383" height="40.0" radius="19.5" width="40.0" />
                </effect>
             </TextField>
-            <TextField layoutX="609.0" layoutY="131.0" prefHeight="31.0" prefWidth="50.0">
+            <TextField layoutX="609.0" layoutY="131.0" prefHeight="31.0" prefWidth="50.0" fx:id="xTextField">
                <effect>
                   <InnerShadow choke="0.23" color="#838383" height="40.0" radius="19.5" width="40.0" />
                </effect>
             </TextField>
+            <StackPane layoutX="619.0" layoutY="177.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#gotoAction" onMouseReleased="#releaseButtonEffect" prefHeight="36.0" prefWidth="78.0">
+               <children>
+                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="93.0" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Go To">
+                     <font>
+                        <Font name="Consolas Bold" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </StackPane>
          </children>
       </AnchorPane>
    </children>
