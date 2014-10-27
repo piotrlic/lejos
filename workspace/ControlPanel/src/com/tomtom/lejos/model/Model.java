@@ -31,13 +31,10 @@ public class Model {
 	
 	public void stop() throws IOException {
         socketClient.sendMessage("STOP");
-
 	}
 
-	public void gotoAction(String x, String y) throws NumberFormatException{
-		int ix = Integer.parseInt(x);
-		int iy = Integer.parseInt(y);
-		System.out.println("Go to point: " + ix + " , " + iy);
+	public void gotoAction(String x, String y) throws NumberFormatException, IOException{
+		socketClient.sendMessage("GOTO:"+x+","+y);
 	}
 
 }
