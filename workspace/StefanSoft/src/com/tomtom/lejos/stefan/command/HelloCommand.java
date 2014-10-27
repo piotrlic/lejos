@@ -14,8 +14,8 @@ public class HelloCommand implements Command {
 			context.getFlagMotor().rotate(90);
 			Thread.sleep(1000);
 			for (int i = 0; i < 10; i++) {
-				context.getFlagMotor().rotate(10);
-				context.getFlagMotor().rotate(-10);
+				context.getFlagMotor().rotate(40);
+				context.getFlagMotor().rotate(-40);
 			}			
 			Thread.sleep(1000);
 			context.getFlagMotor().rotate(-90);

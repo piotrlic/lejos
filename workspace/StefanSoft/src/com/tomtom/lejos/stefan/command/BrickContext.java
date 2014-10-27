@@ -12,7 +12,7 @@ public class BrickContext {
 	private RegulatedMotor r2 = new EV3LargeRegulatedMotor(MotorPort.C);
 	private RegulatedMotor mediumMotor = new EV3MediumRegulatedMotor(
 			MotorPort.B);
-	private Coordinate previousPosition = new Coordinate(-1, 0);
+	private Coordinate previousPosition = new Coordinate(0, -1);
 	private Coordinate currentPosition = new Coordinate(0, 0);
 
 	public RegulatedMotor getRightMotor() {
