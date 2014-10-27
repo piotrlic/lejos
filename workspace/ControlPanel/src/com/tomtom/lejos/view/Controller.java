@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import sun.org.mozilla.javascript.internal.Kit;
-import javafx.animation.KeyValue;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
