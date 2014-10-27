@@ -85,6 +85,22 @@
                   </Text>
                </children>
             </StackPane>
+            <StackPane layoutX="347.0" layoutY="503.0" opacity="0.5" prefHeight="259.0" prefWidth="270.0">
+               <children>
+                  <Circle fill="WHITE" layoutX="482.0" layoutY="612.0" radius="100.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0">
+                     <effect>
+                        <DropShadow color="WHITE" height="120.0" radius="59.5" spread="0.6" width="120.0" />
+                     </effect>
+                  </Circle>
+               </children>
+               <effect>
+                  <Glow level="0.0">
+                     <input>
+                        <Glow level="0.0" />
+                     </input>
+                  </Glow>
+               </effect>
+            </StackPane>
          </children>
       </AnchorPane>
    </children>

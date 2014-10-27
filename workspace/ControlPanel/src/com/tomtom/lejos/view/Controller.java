@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import sun.org.mozilla.javascript.internal.Kit;
+import javafx.animation.KeyValue;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
@@ -11,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
@@ -18,6 +21,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 
 import com.github.sarxos.webcam.Webcam;
 import com.tomtom.lejos.model.Model;
@@ -42,10 +46,12 @@ public class Controller {
 	private TextField xTextField;
 	@FXML
 	private TextField yTextField;
+	@FXML
+	private Shape colorPresenter;
 	
 	private Glow enterEffect;
-
 	private InnerShadow pressedEffect;
+	private DropShadow colorPresenterEffect;
 
 	public void setModel(Model model) {
 		this.model = model;
@@ -57,6 +63,14 @@ public class Controller {
 		this.pressedEffect.setWidth(40.0);
 		this.pressedEffect.setHeight(40.0);
 		this.pressedEffect.setInput(enterEffect);
+		this.colorPresenterEffect = new DropShadow();
+		this.colorPresenterEffect.setBlurType(BlurType.GAUSSIAN);
+		this.colorPresenterEffect.setWidth(120.0);
+		this.colorPresenterEffect.setHeight(120.0);
+		this.colorPresenterEffect.setColor(Color.WHITE);
+		this.colorPresenterEffect.setSpread(0.6);
+		this.colorPresenter.setEffect(colorPresenterEffect);
+//		this.model.getColorPresenterProperty()
 
 		Task<Void> task = new Task<Void>() {
 
