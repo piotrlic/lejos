@@ -1,17 +1,22 @@
 package com.tomtom.lejos.stefan.command;
 
-import com.tomtom.lejos.stefan.gotoxy.Coordinate;
-
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
+import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.robotics.ColorIdentifier;
 import lejos.robotics.RegulatedMotor;
 
+import com.tomtom.lejos.stefan.gotoxy.Coordinate;
+
 public class BrickContext {
+	
 	private RegulatedMotor r1 = new EV3LargeRegulatedMotor(MotorPort.A);
 	private RegulatedMotor r2 = new EV3LargeRegulatedMotor(MotorPort.C);
+	private ColorIdentifier colorDetector = new EV3ColorSensor(MotorPort.B);
 	private RegulatedMotor mediumMotor = new EV3MediumRegulatedMotor(
 			MotorPort.B);
+	
 	private Coordinate previousPosition = new Coordinate(0, -1);
 	private Coordinate currentPosition = new Coordinate(0, 0);
 
@@ -23,6 +28,10 @@ public class BrickContext {
 		return r2;
 	}
 
+	public ColorIdentifier getColorDetector() {
+		return colorDetector;
+	}
+	
 	public RegulatedMotor getFlagMotor() {
 		return mediumMotor;
 	}
@@ -30,6 +39,7 @@ public class BrickContext {
 	public Coordinate getPreviousPosition(){
 		return previousPosition ;
 	}
+	
 	
 	public Coordinate getCurrentPosition(){
 		return currentPosition;
@@ -42,4 +52,5 @@ public class BrickContext {
 	public void setPreviousPosition(Coordinate previousPosition) {
 		this.previousPosition = previousPosition;
 	}
+
 }

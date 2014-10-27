@@ -3,6 +3,9 @@ package com.tomtom.lejos.stefan;
 import java.io.IOException;
 import java.net.SocketException;
 
+import lejos.hardware.Button;
+import lejos.hardware.lcd.LCD;
+
 import com.tomtom.lejos.stefan.command.BrickContext;
 import com.tomtom.lejos.stefan.command.Command;
 import com.tomtom.lejos.stefan.command.CommandName;
@@ -17,11 +20,9 @@ import com.tomtom.lejos.stefan.command.StopCommand;
 import com.tomtom.lejos.stefan.command.TurnLeftCommand;
 import com.tomtom.lejos.stefan.command.TurnRightCommand;
 
-import lejos.hardware.Button;
-import lejos.hardware.lcd.LCD;
-
 public class Main {
 	private static final int TIMEOUT = 300000;
+	private static int lastColorId = -1;
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
 		BrickContext context = new BrickContext();
@@ -56,6 +57,10 @@ public class Main {
 						command.executeCommand(context);
 					}
 				}
+				int colorID = context.getColorDetector().getColorID();
+				if (colorID != lastColorId) {
+					server.sendAndReceive(String.valueOf(colorID));
+				}
 				if (Button.ESCAPE.isDown()) {
 					break;
 				}
@@ -64,7 +69,6 @@ public class Main {
 				server = new SocketServer(pool.getPort(), 300000);
 				server.connect();
 				continue;
-				
 			}
 		}
 	}

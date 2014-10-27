@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -46,29 +47,21 @@ public class Controller {
 	private TextField yTextField;
 	@FXML
 	private Shape colorPresenter;
-	
+
 	private Glow enterEffect;
 	private InnerShadow pressedEffect;
 	private DropShadow colorPresenterEffect;
 
 	public void setModel(Model model) {
 		this.model = model;
-		this.enterEffect = new Glow(0.7);
-		this.pressedEffect = new InnerShadow();
-		this.pressedEffect.setBlurType(BlurType.GAUSSIAN);
-		this.pressedEffect.setChoke(0.2);
-		this.pressedEffect.setColor(Color.web("#5F9BB5"));
-		this.pressedEffect.setWidth(40.0);
-		this.pressedEffect.setHeight(40.0);
-		this.pressedEffect.setInput(enterEffect);
-		this.colorPresenterEffect = new DropShadow();
-		this.colorPresenterEffect.setBlurType(BlurType.GAUSSIAN);
-		this.colorPresenterEffect.setWidth(120.0);
-		this.colorPresenterEffect.setHeight(120.0);
-		this.colorPresenterEffect.setColor(Color.WHITE);
-		this.colorPresenterEffect.setSpread(0.6);
+		ObservableValue<Color> color = model.getColorPresenter();
+
+		this.enterEffect = createEnterEffect();
+		this.pressedEffect = createPressedEffect();
+		this.colorPresenterEffect = createColorPresenterEffect(color);
+
 		this.colorPresenter.setEffect(colorPresenterEffect);
-//		this.model.getColorPresenterProperty()
+		this.colorPresenter.fillProperty().bind(color);
 
 		Task<Void> task = new Task<Void>() {
 
@@ -80,14 +73,16 @@ public class Controller {
 				webcam.open();
 				while (webcam.isOpen()) {
 					BufferedImage image = webcam.getImage();
-					final WritableImage imagefx = SwingFXUtils.toFXImage(image, null);
+					final WritableImage imagefx = SwingFXUtils.toFXImage(image,
+							null);
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
 							camView.setImage(imagefx);
 						}
 					});
-				};
+				}
+				;
 				return null;
 			}
 		};
@@ -119,14 +114,15 @@ public class Controller {
 		setPressedButtonEffect(mouseEvent);
 		model.right();
 	}
-	
+
 	@FXML
 	public void gotoAction(MouseEvent mouseEvent) throws IOException {
 		setPressedButtonEffect(mouseEvent);
 		try {
 			model.gotoAction(xTextField.getText(), yTextField.getText());
 		} catch (NumberFormatException ex) {
-			System.out.println("Unparsaplne input for go to function: " + xTextField.getText() + "  ,  " + yTextField.getText());
+			System.out.println("Unparsaplne input for go to function: "
+					+ xTextField.getText() + "  ,  " + yTextField.getText());
 		}
 	}
 
@@ -159,4 +155,31 @@ public class Controller {
 		Node target = (Node) mouseEvent.getTarget();
 		target.setEffect(null);
 	}
+
+	private DropShadow createColorPresenterEffect(ObservableValue<Color> color) {
+		DropShadow presentEffect = new DropShadow();
+		presentEffect.setBlurType(BlurType.GAUSSIAN);
+		presentEffect.setWidth(120.0);
+		presentEffect.setHeight(120.0);
+		presentEffect.setSpread(0.6);
+		presentEffect.setColor(Color.WHITE);
+		presentEffect.colorProperty().bind(color);
+		return presentEffect;
+	}
+
+	private Glow createEnterEffect() {
+		return new Glow(0.7);
+	}
+
+	private InnerShadow createPressedEffect() {
+		InnerShadow innerShadow = new InnerShadow();
+		innerShadow.setBlurType(BlurType.GAUSSIAN);
+		innerShadow.setChoke(0.2);
+		innerShadow.setColor(Color.web("#5F9BB5"));
+		innerShadow.setWidth(40.0);
+		innerShadow.setHeight(40.0);
+		innerShadow.setInput(enterEffect);
+		return innerShadow;
+	}
+
 }

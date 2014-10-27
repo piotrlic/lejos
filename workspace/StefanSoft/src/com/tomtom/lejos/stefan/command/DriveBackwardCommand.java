@@ -1,6 +1,5 @@
 package com.tomtom.lejos.stefan.command;
 
-import java.sql.Driver;
 
 public class DriveBackwardCommand implements Command {
 

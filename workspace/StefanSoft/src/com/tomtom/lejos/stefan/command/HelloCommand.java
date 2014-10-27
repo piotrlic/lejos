@@ -1,9 +1,6 @@
 package com.tomtom.lejos.stefan.command;
 
-import java.io.File;
-
 import lejos.hardware.Button;
-import lejos.hardware.Sound;
 
 public class HelloCommand implements Command {
 
