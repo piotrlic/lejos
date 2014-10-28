@@ -59,7 +59,7 @@ public class Main {
 				}
 				int colorID = context.getColorDetector().getColorID();
 				if (colorID != lastColorId) {
-					server.sendAndReceive(String.valueOf(colorID));
+					server.send(String.valueOf(colorID));
 				}
 				if (Button.ESCAPE.isDown()) {
 					break;

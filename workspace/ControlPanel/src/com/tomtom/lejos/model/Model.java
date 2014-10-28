@@ -18,8 +18,8 @@ public class Model {
 	private Map<String, Color> colorPresenterMap;
 	
 	public Model(String serverName, int port) throws IOException {
-//		socketClient = new SocketClient(serverName, port);
-//		socketClient.connect();
+		socketClient = new SocketClient(serverName, port);
+		socketClient.connect();
 		colorPresenterMap = createColorMap();
 		colorPresenter = new SimpleObjectProperty<Color>(Color.WHITE);
 		startColorReciving();

@@ -64,4 +64,8 @@ public class SocketServer {
         String response = in.readUTF();
         return response;
     }
+    
+    public void send(String message) throws IOException {
+    	out.writeUTF(message);
+    }
 }

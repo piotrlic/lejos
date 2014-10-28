@@ -19,7 +19,7 @@
             <ColorAdjust brightness="-0.32" contrast="-0.17" hue="0.02" saturation="-0.61" />
          </effect>
       </ImageView>
-      <ImageView fx:id="camView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="camView" fitHeight="643.0" fitWidth="966.0" pickOnBounds="true" preserveRatio="true" />
       <AnchorPane>
          <children>
             <Label layoutX="627.0" layoutY="103.0" text="X" textFill="WHITE">
