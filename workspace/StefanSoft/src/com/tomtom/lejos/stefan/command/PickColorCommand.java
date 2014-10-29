@@ -5,7 +5,6 @@ public class PickColorCommand implements Command {
 	@Override
 	public String executeCommand(BrickContext context)
 			throws InterruptedException {
-		
 		return String.valueOf(context.getColorDetector().getColorID());
 	}
 

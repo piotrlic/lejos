@@ -16,18 +16,22 @@ import com.tomtom.lejos.stefan.command.FireCommand;
 import com.tomtom.lejos.stefan.command.ForwardCommand;
 import com.tomtom.lejos.stefan.command.GotoCommand;
 import com.tomtom.lejos.stefan.command.HelloCommand;
+import com.tomtom.lejos.stefan.command.PickColorCommand;
 import com.tomtom.lejos.stefan.command.StopCommand;
 import com.tomtom.lejos.stefan.command.TurnLeftCommand;
 import com.tomtom.lejos.stefan.command.TurnRightCommand;
 
 public class Main {
 	private static final int TIMEOUT = 300000;
-	private static int lastColorId = -1;
+	private static String lastColorId = "-1";
+	private static SocketPortPool pool = new SocketPortPool();
+	private static BrickContext context = new BrickContext();
 
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
-		BrickContext context = new BrickContext();
-		SocketPortPool pool = new SocketPortPool();
+		
+		runColorDetector().start();
+		
 		CommandsProvider commandProvider = new CommandsProvider();
 		commandProvider.registerCommand(new ForwardCommand());
 		commandProvider.registerCommand(new TurnLeftCommand());
@@ -38,13 +42,12 @@ public class Main {
 		commandProvider.registerCommand(new HelloCommand());
 		commandProvider.registerCommand(new FireCommand());
 		commandProvider.registerCommand(new GotoCommand());
-		SocketServer server = new SocketServer(pool.getPort(), TIMEOUT);
+		SocketServer server = new SocketServer(6667, TIMEOUT);
 		server.connect();
 		while (true) {
 			try {
 				Thread.sleep(1000);
 				String message = server.receive();
-				String messageToSend = null;
 				if (message != null && message.length() > 0) {
 					String[] payload = message.split(":");
 					Command command = commandProvider.getCommand(CommandName
@@ -57,12 +60,8 @@ public class Main {
 					if (command == null) {
 						LCD.drawString("Unknown command", 0, 0);
 					} else {
-
-						messageToSend = command.executeCommand(context);
+						command.executeCommand(context);
 					}
-				}
-				if (messageToSend != null ) {
-					server.send(messageToSend);
 				}
 
 				if (Button.ESCAPE.isDown()) {
@@ -70,10 +69,35 @@ public class Main {
 				}
 			} catch (SocketException e) {
 				server.connectionLost();
-				server = new SocketServer(pool.getPort(), 300000);
+				server = new SocketServer(6667, 300000);
 				server.connect();
 				continue;
 			}
 		}
+	}
+
+	public static Thread runColorDetector() {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Command command = new PickColorCommand();
+					SocketServer server = new SocketServer(6666, TIMEOUT);
+					server.connect();
+					while (true) {
+						Thread.sleep(300);
+						String messageToSend = command.executeCommand(context);
+						if (!lastColorId.equals(messageToSend)) {
+							server.send(messageToSend);
+						}
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		return thread;
 	}
 }

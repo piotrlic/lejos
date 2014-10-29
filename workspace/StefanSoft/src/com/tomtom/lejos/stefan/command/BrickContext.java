@@ -14,7 +14,7 @@ public class BrickContext {
 	
 	private RegulatedMotor r1 = new EV3LargeRegulatedMotor(MotorPort.A);
 	private RegulatedMotor r2 = new EV3LargeRegulatedMotor(MotorPort.C);
-	private ColorIdentifier colorDetector = new EV3ColorSensor(SensorPort.S1);
+	private EV3ColorSensor colorDetector = new EV3ColorSensor(SensorPort.S1);
 	private RegulatedMotor mediumMotor = new EV3MediumRegulatedMotor(
 			MotorPort.B);
 	
@@ -30,6 +30,10 @@ public class BrickContext {
 	}
 
 	public ColorIdentifier getColorDetector() {
+		return colorDetector;
+	}
+	
+	public EV3ColorSensor getEV3ColorSensor() {
 		return colorDetector;
 	}
 	

@@ -53,7 +53,6 @@ public class SocketServer {
     public void connectionLost() throws IOException {
     	server.close();
     	//server = null;
-        
     }
 
     public String receive() throws IOException{

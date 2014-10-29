@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -13,13 +14,17 @@ import com.tomtom.lejos.SocketClient;
 
 public class Model {
 
-	private SocketClient socketClient;
+	private SocketClient socketListener;
+	private SocketClient socketSender;
 	private ObjectProperty<Color> colorPresenter;
 	private Map<String, Color> colorPresenterMap;
 
-	public Model(String serverName, int port) throws IOException {
-		socketClient = new SocketClient(serverName, port);
-		socketClient.connect();
+//	public Model(String serverName, int port) throws IOException {
+	public Model() throws IOException {
+		socketListener = new SocketClient("192.168.1.7", 6666);
+		socketListener.connect();
+		socketSender = new SocketClient("192.168.1.7", 6667);
+		socketSender.connect();
 		colorPresenterMap = createColorMap();
 		colorPresenter = new SimpleObjectProperty<Color>(Color.WHITE);
 		startColorReciving();
@@ -51,14 +56,17 @@ public class Model {
 			public void run() {
 				try {
 					while (true) {
-						socketClient.sendMessage("PICK_COLOR");
 						Thread.sleep(1000);
-						String colorKey = socketClient.receive();
+						String colorKey = socketListener.receive();
 						System.out.println(colorKey);
-						Color currentColor = colorPresenterMap.get(colorKey);
+						final Color currentColor = colorPresenterMap.get(colorKey);
 						if (!colorPresenter.getValue().equals(currentColor)) {
-							// Platform.runLater(arg0);
-							colorPresenter.set(currentColor);
+							Platform.runLater(new Runnable() {
+								@Override
+								public void run() {
+									colorPresenter.set(currentColor);
+								}
+							});
 						}
 					}
 				} catch (IOException | InterruptedException e) {
@@ -70,28 +78,28 @@ public class Model {
 	}
 
 	public void forward() throws IOException {
-		socketClient.sendMessage("DRIVE_F");
+		socketSender.sendMessage("DRIVE_F");
 	}
 
 	public void backward() throws IOException {
-		socketClient.sendMessage("DRIVE_B");
+		socketSender.sendMessage("DRIVE_B");
 	}
 
 	public void left() throws IOException {
-		socketClient.sendMessage("TURN_LEFT");
+		socketSender.sendMessage("TURN_LEFT");
 	}
 
 	public void right() throws IOException {
-		socketClient.sendMessage("TURN_RIGHT");
+		socketSender.sendMessage("TURN_RIGHT");
 	}
 
 	public void stop() throws IOException {
-		socketClient.sendMessage("STOP");
+		socketSender.sendMessage("STOP");
 	}
 
 	public void gotoAction(String x, String y) throws NumberFormatException,
 			IOException {
-		socketClient.sendMessage("GOTO:" + x + "," + y);
+		socketSender.sendMessage("GOTO:" + x + "," + y);
 	}
 
 	public ObservableValue<Color> getColorPresenter() {
