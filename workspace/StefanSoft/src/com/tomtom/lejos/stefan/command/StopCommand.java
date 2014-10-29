@@ -6,11 +6,11 @@ import java.util.concurrent.CyclicBarrier;
 public class StopCommand implements Command{
 
 	@Override
-	public void executeCommand(final BrickContext context)
+	public String executeCommand(final BrickContext context)
 			throws InterruptedException {
 		//runInThreads(context);
 		run(context);
-			
+		return null;	
 		
 	}
 

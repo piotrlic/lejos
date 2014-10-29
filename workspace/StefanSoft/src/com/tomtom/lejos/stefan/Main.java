@@ -23,6 +23,7 @@ import com.tomtom.lejos.stefan.command.TurnRightCommand;
 public class Main {
 	private static final int TIMEOUT = 300000;
 	private static int lastColorId = -1;
+
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
 		BrickContext context = new BrickContext();
@@ -43,24 +44,27 @@ public class Main {
 			try {
 				Thread.sleep(1000);
 				String message = server.receive();
-				if (message != null) {
+				String messageToSend = null;
+				if (message != null && message.length() > 0) {
 					String[] payload = message.split(":");
-					Command command = commandProvider.getCommand(CommandName.valueOf(payload[0]));
-					if(payload.length>1){
+					Command command = commandProvider.getCommand(CommandName
+							.valueOf(payload[0]));
+					if (payload.length > 1) {
 						String[] params = payload[1].split(",");
 						command.setParams(params);
 					}
-					
+
 					if (command == null) {
 						LCD.drawString("Unknown command", 0, 0);
 					} else {
-						command.executeCommand(context);
+
+						messageToSend = command.executeCommand(context);
 					}
 				}
-				int colorID = context.getColorDetector().getColorID();
-				if (colorID != lastColorId) {
-					server.send(String.valueOf(colorID));
+				if (messageToSend != null ) {
+					server.send(messageToSend);
 				}
+
 				if (Button.ESCAPE.isDown()) {
 					break;
 				}

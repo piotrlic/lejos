@@ -1,23 +1,23 @@
 package com.tomtom.lejos.stefan.command;
 
-public class TurnRightCommand implements Command {
+public class PickColorCommand implements Command {
 
 	@Override
 	public String executeCommand(BrickContext context)
 			throws InterruptedException {
-		context.getLeftMotor().forward();		
-		context.getRightMotor().backward();
-		return null;
+		
+		return String.valueOf(context.getColorDetector().getColorID());
 	}
 
 	@Override
 	public void setParams(String[] params) {
-		// no params
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public CommandName getCommandName() {
-		return CommandName.TURN_RIGHT;
+		return CommandName.PICK_COLOR;
 	}
 
 }

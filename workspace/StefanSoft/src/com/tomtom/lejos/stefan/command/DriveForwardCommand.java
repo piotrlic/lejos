@@ -4,11 +4,11 @@ package com.tomtom.lejos.stefan.command;
 public class DriveForwardCommand implements Command {
 
 	@Override
-	public void executeCommand(BrickContext context)
+	public String executeCommand(BrickContext context)
 			throws InterruptedException {
 		context.getLeftMotor().forward();		
 		context.getRightMotor().forward();
-		
+		return null;
 	}
 
 	@Override

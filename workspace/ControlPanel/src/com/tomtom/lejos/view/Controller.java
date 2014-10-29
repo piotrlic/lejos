@@ -70,7 +70,9 @@ public class Controller {
 
 				Webcam webcam = Webcam.getDefault();
 				webcam.setViewSize(new Dimension(640, 480));
+//				webcam.setViewSize(new Dimension(1280, 720));
 				webcam.open();
+				try {
 				while (webcam.isOpen()) {
 					BufferedImage image = webcam.getImage();
 					final WritableImage imagefx = SwingFXUtils.toFXImage(image,
@@ -81,8 +83,11 @@ public class Controller {
 							camView.setImage(imagefx);
 						}
 					});
+				};
 				}
-				;
+				finally {
+					webcam.close();
+				}
 				return null;
 			}
 		};
@@ -119,7 +124,8 @@ public class Controller {
 	public void gotoAction(MouseEvent mouseEvent) throws IOException {
 		setPressedButtonEffect(mouseEvent);
 		try {
-			model.gotoAction(xTextField.getText(), yTextField.getText());
+//			model.gotoAction(xTextField.getText(), yTextField.getText());
+			model.testColorChange();
 		} catch (NumberFormatException ex) {
 			System.out.println("Unparsaplne input for go to function: "
 					+ xTextField.getText() + "  ,  " + yTextField.getText());

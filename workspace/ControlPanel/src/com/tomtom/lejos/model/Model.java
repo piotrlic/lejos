@@ -16,7 +16,7 @@ public class Model {
 	private SocketClient socketClient;
 	private ObjectProperty<Color> colorPresenter;
 	private Map<String, Color> colorPresenterMap;
-	
+
 	public Model(String serverName, int port) throws IOException {
 		socketClient = new SocketClient(serverName, port);
 		socketClient.connect();
@@ -24,24 +24,24 @@ public class Model {
 		colorPresenter = new SimpleObjectProperty<Color>(Color.WHITE);
 		startColorReciving();
 	}
-	
+
 	private Map<String, Color> createColorMap() {
 		Map<String, Color> colorMap = new HashMap<String, Color>();
-		colorMap.put("0",Color.RED);
-		colorMap.put("1",Color.GREEN);
-		colorMap.put("2",Color.BLUE);
-		colorMap.put("3",Color.YELLOW);
-		colorMap.put("4",Color.MAGENTA);
-		colorMap.put("5",Color.ORANGE);
-		colorMap.put("6",Color.WHITE);
-		colorMap.put("7",Color.BLACK);
-		colorMap.put("8",Color.PINK);
-		colorMap.put("9",Color.GRAY);
-		colorMap.put("10",Color.LIGHTGRAY);
-		colorMap.put("11",Color.DARKGRAY);
-		colorMap.put("12",Color.CYAN);
-		colorMap.put("13",Color.BROWN);
-		colorMap.put("-1",Color.TRANSPARENT);
+		colorMap.put("0", Color.RED);
+		colorMap.put("1", Color.GREEN);
+		colorMap.put("2", Color.BLUE);
+		colorMap.put("3", Color.YELLOW);
+		colorMap.put("4", Color.MAGENTA);
+		colorMap.put("5", Color.ORANGE);
+		colorMap.put("6", Color.WHITE);
+		colorMap.put("7", Color.BLACK);
+		colorMap.put("8", Color.PINK);
+		colorMap.put("9", Color.GRAY);
+		colorMap.put("10", Color.LIGHTGRAY);
+		colorMap.put("11", Color.DARKGRAY);
+		colorMap.put("12", Color.CYAN);
+		colorMap.put("13", Color.BROWN);
+		colorMap.put("-1", Color.TRANSPARENT);
 		return colorMap;
 	}
 
@@ -50,13 +50,18 @@ public class Model {
 			@Override
 			public void run() {
 				try {
-					String colorKey = socketClient.receiveAndSend("");
-					Color currentColor = colorPresenterMap.get(colorKey);
-					if (!colorPresenter.getValue().equals(currentColor)){
-//						Platform.runLater(arg0);
-						colorPresenter.set(currentColor);
+					while (true) {
+						socketClient.sendMessage("PICK_COLOR");
+						Thread.sleep(1000);
+						String colorKey = socketClient.receive();
+						System.out.println(colorKey);
+						Color currentColor = colorPresenterMap.get(colorKey);
+						if (!colorPresenter.getValue().equals(currentColor)) {
+							// Platform.runLater(arg0);
+							colorPresenter.set(currentColor);
+						}
 					}
-				} catch (IOException e) {
+				} catch (IOException | InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
@@ -65,33 +70,34 @@ public class Model {
 	}
 
 	public void forward() throws IOException {
-        socketClient.sendMessage("DRIVE_F");
+		socketClient.sendMessage("DRIVE_F");
 	}
-	
+
 	public void backward() throws IOException {
 		socketClient.sendMessage("DRIVE_B");
 	}
-	
+
 	public void left() throws IOException {
-        socketClient.sendMessage("TURN_LEFT");
+		socketClient.sendMessage("TURN_LEFT");
 	}
-	
+
 	public void right() throws IOException {
 		socketClient.sendMessage("TURN_RIGHT");
 	}
-	
+
 	public void stop() throws IOException {
-        socketClient.sendMessage("STOP");
+		socketClient.sendMessage("STOP");
 	}
 
-	public void gotoAction(String x, String y) throws NumberFormatException, IOException{
-		socketClient.sendMessage("GOTO:"+x+","+y);
+	public void gotoAction(String x, String y) throws NumberFormatException,
+			IOException {
+		socketClient.sendMessage("GOTO:" + x + "," + y);
 	}
-	
+
 	public ObservableValue<Color> getColorPresenter() {
 		return colorPresenter;
 	}
-	
+
 	public void testColorChange() {
 		if (colorPresenter.getValue().equals(Color.RED)) {
 			colorPresenter.setValue(Color.WHITE);
@@ -99,8 +105,5 @@ public class Model {
 			colorPresenter.setValue(Color.RED);
 		}
 	}
-	
-	
-	
 
 }

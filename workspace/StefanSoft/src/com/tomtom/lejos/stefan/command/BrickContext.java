@@ -3,6 +3,7 @@ package com.tomtom.lejos.stefan.command;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
+import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.ColorIdentifier;
 import lejos.robotics.RegulatedMotor;
@@ -13,7 +14,7 @@ public class BrickContext {
 	
 	private RegulatedMotor r1 = new EV3LargeRegulatedMotor(MotorPort.A);
 	private RegulatedMotor r2 = new EV3LargeRegulatedMotor(MotorPort.C);
-	private ColorIdentifier colorDetector = new EV3ColorSensor(MotorPort.B);
+	private ColorIdentifier colorDetector = new EV3ColorSensor(SensorPort.S1);
 	private RegulatedMotor mediumMotor = new EV3MediumRegulatedMotor(
 			MotorPort.B);
 	

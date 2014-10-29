@@ -5,7 +5,7 @@ import lejos.hardware.Button;
 public class HelloCommand implements Command {
 
 	@Override
-	public void executeCommand(BrickContext context) throws InterruptedException {
+	public String executeCommand(BrickContext context) throws InterruptedException {
 			Button.LEDPattern(6);
 			Thread.sleep(100);
 			context.getFlagMotor().rotate(90);
@@ -17,7 +17,7 @@ public class HelloCommand implements Command {
 			Thread.sleep(1000);
 			context.getFlagMotor().rotate(-90);
 			//Sound.playTone(500, 100);//(new File("waves/test.wav"));
-		
+			return null;
 	}
 
 	@Override

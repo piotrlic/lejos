@@ -31,10 +31,10 @@ public class SocketClient {
         out = new DataOutputStream(client.getOutputStream());
     }
 
-    public String receiveAndSend(String response) throws IOException, EOFException {
+    public String receive() throws IOException, EOFException {
         String message =  in.readUTF();
 
-        out.writeUTF(response);
+        //out.writeUTF(response);
         return message;
     }
     public void sendMessage(String message) throws IOException{
@@ -68,9 +68,10 @@ public class SocketClient {
                 sc.sendMessage("STOP");
                 Thread.sleep(1000);*/
                 //sc.sendMessage("HELLO");
-                sc.sendMessage("GOTO:10,10");
+                /*sc.sendMessage("GOTO:10,10");
                 sc.sendMessage("GOTO:10,-10");
-                sc.sendMessage("GOTO:0,0");
+                sc.sendMessage("GOTO:0,0");*/
+            	sc.sendMessage("HELLO");
                 Thread.sleep(5000);
             }
         } catch (IOException e) {

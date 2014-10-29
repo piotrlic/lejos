@@ -6,11 +6,11 @@ import lejos.hardware.Sound;
 public class FireCommand implements Command {
 
 	@Override
-	public void executeCommand(BrickContext context)
+	public String executeCommand(BrickContext context)
 			throws InterruptedException {
 		Button.LEDPattern(6);
 		Sound.playTone(500, 100);
-		
+		return null;
 	}
 
 	@Override

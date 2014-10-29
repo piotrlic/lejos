@@ -4,10 +4,10 @@ public class TurnLeftCommand implements Command {
 
 	private int angle;
 	@Override
-	public void executeCommand(BrickContext context) throws InterruptedException {
+	public String executeCommand(BrickContext context) throws InterruptedException {
 		context.getLeftMotor().backward();		
 		context.getRightMotor().forward();
-		
+		return null;
 	}
 
 	@Override

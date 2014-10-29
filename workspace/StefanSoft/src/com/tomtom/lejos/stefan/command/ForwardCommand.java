@@ -5,10 +5,11 @@ public class ForwardCommand implements Command {
 
 	private int distance;
 	@Override
-	public void executeCommand(BrickContext context) {
+	public String executeCommand(BrickContext context) {
 
 		context.getLeftMotor().rotate(distance, true);
 		context.getRightMotor().rotate(distance);
+		return null;
 	}
 	public int getDistance() {
 		return distance;

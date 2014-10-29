@@ -9,7 +9,7 @@ public class GotoCommand implements Command {
 	private static final double CENTIMETER = 37;
 	private Coordinate destination;
 	@Override
-	public void executeCommand(BrickContext context)
+	public String executeCommand(BrickContext context)
 			throws InterruptedException {
 		Transformer transformer = new Transformer();
 		Parameters transformResult = transformer.transform(context.getPreviousPosition(), context.getCurrentPosition(), destination);
@@ -23,7 +23,7 @@ public class GotoCommand implements Command {
 		
 		context.setPreviousPosition(context.getCurrentPosition());
 		context.setCurrentPosition(destination);
-		
+		return null;
 	}
 
 	@Override
