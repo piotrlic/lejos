@@ -85,7 +85,7 @@ public class Main {
 					SocketServer server = new SocketServer(6666, TIMEOUT);
 					server.connect();
 					while (true) {
-						Thread.sleep(300);
+						Thread.sleep(1000);
 						String messageToSend = command.executeCommand(context);
 						if (!lastColorId.equals(messageToSend)) {
 							server.send(messageToSend);
