@@ -22,6 +22,9 @@ import com.tomtom.lejos.stefan.command.TurnLeftCommand;
 import com.tomtom.lejos.stefan.command.TurnRightCommand;
 
 public class Main {
+	public static final double DEGREE = 5.77;
+//	public static final double DEGREE = 5.27;
+
 	private static final int TIMEOUT = 300000;
 	private static String lastColorId = "-1";
 	private static SocketPortPool pool = new SocketPortPool();
@@ -30,19 +33,14 @@ public class Main {
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
 		
+		CommandsProvider commandProvider = prepareCommands();
+
+		Command command = commandProvider.getCommand(CommandName.HELLO);
+		command.executeCommand(context);
+		
 		runColorDetector().start();
 		
-		CommandsProvider commandProvider = new CommandsProvider();
-		commandProvider.registerCommand(new ForwardCommand());
-		commandProvider.registerCommand(new TurnLeftCommand());
-		commandProvider.registerCommand(new TurnRightCommand());
-		commandProvider.registerCommand(new DriveForwardCommand());
-		commandProvider.registerCommand(new DriveBackwardCommand());
-		commandProvider.registerCommand(new StopCommand());
-		commandProvider.registerCommand(new HelloCommand());
-		commandProvider.registerCommand(new FireCommand());
-		commandProvider.registerCommand(new GotoCommand());
-		SocketServer server = new SocketServer(6667, TIMEOUT);
+		SocketServer server = new SocketServer(pool.getPort(), TIMEOUT);
 		server.connect();
 		while (true) {
 			try {
@@ -50,7 +48,7 @@ public class Main {
 				String message = server.receive();
 				if (message != null && message.length() > 0) {
 					String[] payload = message.split(":");
-					Command command = commandProvider.getCommand(CommandName
+					command = commandProvider.getCommand(CommandName
 							.valueOf(payload[0]));
 					if (payload.length > 1) {
 						String[] params = payload[1].split(",");
@@ -76,17 +74,34 @@ public class Main {
 		}
 	}
 
+	private static CommandsProvider prepareCommands() {
+		CommandsProvider commandProvider = new CommandsProvider();
+		commandProvider.registerCommand(new ForwardCommand());
+		commandProvider.registerCommand(new TurnLeftCommand());
+		commandProvider.registerCommand(new TurnRightCommand());
+		commandProvider.registerCommand(new DriveForwardCommand());
+		commandProvider.registerCommand(new DriveBackwardCommand());
+		commandProvider.registerCommand(new StopCommand());
+		commandProvider.registerCommand(new HelloCommand());
+		commandProvider.registerCommand(new FireCommand());
+		commandProvider.registerCommand(new GotoCommand());
+		return commandProvider;
+	}
+
 	public static Thread runColorDetector() {
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					Command command = new PickColorCommand();
-					SocketServer server = new SocketServer(6666, TIMEOUT);
+					SocketServer server = new SocketServer(pool.getPort(), TIMEOUT);
 					server.connect();
 					while (true) {
-						Thread.sleep(1000);
+						Thread.sleep(100);
 						String messageToSend = command.executeCommand(context);
+//						if ("7".equals(messageToSend)) {
+//							(new StopCommand()).executeCommand(context);
+//						}
 						if (!lastColorId.equals(messageToSend)) {
 							server.send(messageToSend);
 						}

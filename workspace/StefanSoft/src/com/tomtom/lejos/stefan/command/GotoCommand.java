@@ -1,11 +1,11 @@
 package com.tomtom.lejos.stefan.command;
 
+import com.tomtom.lejos.stefan.Main;
 import com.tomtom.lejos.stefan.gotoxy.Coordinate;
 import com.tomtom.lejos.stefan.gotoxy.Parameters;
 import com.tomtom.lejos.stefan.gotoxy.Transformer;
 
 public class GotoCommand implements Command {
-	private static final double DEGREE = 5.27;
 	private static final double CENTIMETER = 37;
 	private Coordinate destination;
 	@Override
@@ -15,8 +15,8 @@ public class GotoCommand implements Command {
 		Parameters transformResult = transformer.transform(context.getPreviousPosition(), context.getCurrentPosition(), destination);
 		double angle = transformResult.getAngle();
 		double distance = transformResult.getDistance();
-		context.getRightMotor().rotate(new Double(angle*DEGREE).intValue(), true);
-		context.getLeftMotor().rotate(new Double(angle*DEGREE*(-1)).intValue());
+		context.getRightMotor().rotate(new Double(angle*Main.DEGREE).intValue(), true);
+		context.getLeftMotor().rotate(new Double(angle*Main.DEGREE*(-1)).intValue());
 		
 		context.getLeftMotor().rotate(new Double(distance*CENTIMETER).intValue(), true);
 		context.getRightMotor().rotate(new Double(distance*CENTIMETER).intValue());

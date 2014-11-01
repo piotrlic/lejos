@@ -56,9 +56,8 @@ public class Model {
 			public void run() {
 				try {
 					while (true) {
-						Thread.sleep(1000);
+						Thread.sleep(200);
 						String colorKey = socketListener.receive();
-						System.out.println(colorKey);
 						final Color currentColor = colorPresenterMap.get(colorKey);
 						if (!colorPresenter.getValue().equals(currentColor)) {
 							Platform.runLater(new Runnable() {

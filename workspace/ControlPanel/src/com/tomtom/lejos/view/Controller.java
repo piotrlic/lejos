@@ -124,8 +124,7 @@ public class Controller {
 	public void gotoAction(MouseEvent mouseEvent) throws IOException {
 		setPressedButtonEffect(mouseEvent);
 		try {
-//			model.gotoAction(xTextField.getText(), yTextField.getText());
-			model.testColorChange();
+			model.gotoAction(xTextField.getText(), yTextField.getText());
 		} catch (NumberFormatException ex) {
 			System.out.println("Unparsaplne input for go to function: "
 					+ xTextField.getText() + "  ,  " + yTextField.getText());
