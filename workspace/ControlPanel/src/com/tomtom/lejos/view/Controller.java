@@ -9,6 +9,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
@@ -21,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
 
 import com.github.sarxos.webcam.Webcam;
 import com.tomtom.lejos.model.Model;
@@ -47,10 +49,17 @@ public class Controller {
 	private TextField yTextField;
 	@FXML
 	private Shape colorPresenter;
+	@FXML
+	private Pane microcosmos;
+	@FXML
+	private Text cameraLabel;
 
 	private Glow enterEffect;
 	private InnerShadow pressedEffect;
 	private DropShadow colorPresenterEffect;
+	private Webcam webcam;
+
+	private Thread cameraThread;
 
 	public void setModel(Model model) {
 		this.model = model;
@@ -63,37 +72,8 @@ public class Controller {
 		this.colorPresenter.setEffect(colorPresenterEffect);
 		this.colorPresenter.fillProperty().bind(color);
 
-		Task<Void> task = new Task<Void>() {
-
-			@Override
-			protected Void call() throws Exception {
-
-				Webcam webcam = Webcam.getDefault();
-				webcam.setViewSize(new Dimension(640, 480));
-//				webcam.setViewSize(new Dimension(1280, 720));
-				webcam.open();
-				try {
-				while (webcam.isOpen()) {
-					BufferedImage image = webcam.getImage();
-					final WritableImage imagefx = SwingFXUtils.toFXImage(image,
-							null);
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
-							camView.setImage(imagefx);
-						}
-					});
-				};
-				}
-				finally {
-					webcam.close();
-				}
-				return null;
-			}
-		};
-		Thread thread = new Thread(task);
-		thread.setDaemon(true);
-		thread.start();
+		cameraThread = createCameraThread(0);
+		cameraThread.start();
 	}
 
 	@FXML
@@ -130,6 +110,16 @@ public class Controller {
 					+ xTextField.getText() + "  ,  " + yTextField.getText());
 		}
 	}
+	
+	@FXML
+	public void gotoAction2(MouseEvent mouseEvent) {
+		Bounds boundsInLocal = microcosmos.getBoundsInLocal();
+		Bounds boundsInParent = microcosmos.getBoundsInParent();
+		System.out.println("boundsInLocal = " + boundsInLocal);
+		System.out.println("boundsInParent = " + boundsInParent);
+		model.gotoAction(mouseEvent.getX(), mouseEvent.getY(), boundsInLocal);
+	}
+	
 
 	@FXML
 	public void setPressedButtonEffect(MouseEvent mouseEvent) {
@@ -159,6 +149,58 @@ public class Controller {
 	public void removeAllButtonsEffects(MouseEvent mouseEvent) {
 		Node target = (Node) mouseEvent.getTarget();
 		target.setEffect(null);
+	}
+	
+	@FXML
+	public void switchCamera(MouseEvent mouseEvent) {
+		setPressedButtonEffect(mouseEvent);
+		String camera1text = "Camera 1";
+		String camera2text = "Camera 2";
+		if (camera1text.equals(cameraLabel)) {
+			cameraLabel.setText(camera2text);
+			cameraThread.interrupt();
+			cameraThread = createCameraThread(1);
+			cameraThread.start();
+		} else {
+			cameraLabel.setText(camera1text);
+			cameraThread.interrupt();
+			cameraThread = createCameraThread(0);
+			cameraThread.start();
+		}
+		
+	}
+	
+	private Thread createCameraThread(final int cameraIndex) {
+		Task<Void> task = new Task<Void>() {
+			@Override
+			protected Void call() throws Exception {
+
+				webcam = Webcam.getWebcams().get(cameraIndex);
+				webcam.setViewSize(new Dimension(640, 480));
+//				webcam.setViewSize(new Dimension(1280, 720));
+				webcam.open();
+				try {
+				while (webcam.isOpen()) {
+					BufferedImage image = webcam.getImage();
+					final WritableImage imagefx = SwingFXUtils.toFXImage(image,
+							null);
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							camView.setImage(imagefx);
+						}
+					});
+				};
+				}
+				finally {
+					webcam.close();
+				}
+				return null;
+			}
+		};
+		Thread thread = new Thread(task);
+		thread.setDaemon(true);
+		return thread;
 	}
 
 	private DropShadow createColorPresenterEffect(ObservableValue<Color> color) {

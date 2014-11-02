@@ -19,92 +19,109 @@
             <ColorAdjust brightness="-0.32" contrast="-0.17" hue="0.02" saturation="-0.61" />
          </effect>
       </ImageView>
-      <ImageView fx:id="camView" fitHeight="643.0" fitWidth="966.0" pickOnBounds="true" preserveRatio="true" />
       <AnchorPane>
          <children>
-            <Label layoutX="627.0" layoutY="103.0" text="X" textFill="WHITE">
-               <font>
-                  <Font name="Calibri" size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="700.0" layoutY="103.0" text="Y" textFill="WHITE">
-               <font>
-                  <Font name="Calibri" size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="yTextField" layoutX="681.0" layoutY="131.0" prefHeight="31.0" prefWidth="50.0">
-               <effect>
-                  <InnerShadow choke="0.23" color="#838383" height="40.0" radius="19.5" width="40.0" />
-               </effect>
-            </TextField>
-            <TextField layoutX="609.0" layoutY="131.0" prefHeight="31.0" prefWidth="50.0" fx:id="xTextField">
-               <effect>
-                  <InnerShadow choke="0.23" color="#838383" height="40.0" radius="19.5" width="40.0" />
-               </effect>
-            </TextField>
-            <StackPane layoutX="619.0" layoutY="177.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#gotoAction" onMouseReleased="#releaseButtonEffect" prefHeight="36.0" prefWidth="78.0">
+            <AnchorPane visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="93.0" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Go To">
-                     <font>
-                        <Font name="Consolas Bold" size="24.0" />
-                     </font>
-                  </Text>
-               </children>
-            </StackPane>
-            <StackPane layoutX="357.0" layoutY="37.0" prefHeight="250.0" prefWidth="250.0">
-               <children>
-                  <Circle fx:id="colorPresenter" fill="WHITE" layoutX="482.0" layoutY="612.0" opacity="0.5" radius="90.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0">
+                  <TextField layoutY="28.0" prefHeight="31.0" prefWidth="50.0" fx:id="xTextField">
                      <effect>
-                        <DropShadow blurType="GAUSSIAN" color="WHITE" height="120.0" radius="59.5" spread="0.67" width="120.0" />
+                        <InnerShadow choke="0.23" color="#838383" height="40.0" radius="19.5" width="40.0" />
                      </effect>
-                  </Circle>
-                  <GridPane alignment="CENTER">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
+                  </TextField>
+                  <Label layoutX="18.0" text="X" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="91.0" text="Y" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="yTextField" layoutX="72.0" layoutY="28.0" prefHeight="31.0" prefWidth="50.0">
+                     <effect>
+                        <InnerShadow choke="0.23" color="#838383" height="40.0" radius="19.5" width="40.0" />
+                     </effect>
+                  </TextField>
+                  <StackPane layoutX="10.0" layoutY="74.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#gotoAction" onMouseReleased="#releaseButtonEffect" prefHeight="36.0" prefWidth="78.0">
                      <children>
-                        <ImageView fx:id="leftButton" fitHeight="36.0" fitWidth="36.0" layoutX="414.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#leftAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                           <image>
-                              <Image url="@../../../../../resources/arrowButtonLeft.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="downButton" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="87.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#downAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                           <image>
-                              <Image url="@../../../../../resources/arrowButtonDown.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="upButton" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="31.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#upAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                           <image>
-                              <Image url="@../../../../../resources/arrowButtonTop.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="rightButton" fitHeight="36.0" fitWidth="36.0" layoutX="516.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#rightAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                           <image>
-                              <Image url="@../../../../../resources/arrowButtonRight.png" />
-                           </image>
-                        </ImageView>
+                        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="93.0" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Go To">
+                           <font>
+                              <Font name="Consolas Bold" size="24.0" />
+                           </font>
+                        </Text>
                      </children>
-                     <StackPane.margin>
-                        <Insets bottom="65.0" left="65.0" right="65.0" top="65.0" />
-                     </StackPane.margin>
-                  </GridPane>
+                  </StackPane>
                </children>
-               <effect>
-                  <Glow level="0.0">
-                     <input>
-                        <Glow level="0.0" />
-                     </input>
-                  </Glow>
-               </effect>
-            </StackPane>
+            </AnchorPane>
+            <AnchorPane layoutX="25.0" layoutY="19.0" prefHeight="250.0" prefWidth="221.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+               <children>
+                  <StackPane layoutX="357.0" layoutY="37.0" prefHeight="250.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                     <children>
+                        <Circle fx:id="colorPresenter" fill="WHITE" layoutX="482.0" layoutY="612.0" opacity="0.5" radius="90.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0">
+                           <effect>
+                              <DropShadow blurType="GAUSSIAN" color="WHITE" height="120.0" radius="59.5" spread="0.67" width="120.0" />
+                           </effect>
+                        </Circle>
+                        <GridPane alignment="CENTER">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <ImageView fx:id="leftButton" fitHeight="36.0" fitWidth="36.0" layoutX="414.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#leftAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../../../../resources/arrowButtonLeft.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="downButton" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="87.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#downAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../../../../resources/arrowButtonDown.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="upButton" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="31.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#upAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../../../../resources/arrowButtonTop.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="rightButton" fitHeight="36.0" fitWidth="36.0" layoutX="516.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#rightAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../../../../resources/arrowButtonRight.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <StackPane.margin>
+                              <Insets bottom="65.0" left="65.0" right="65.0" top="65.0" />
+                           </StackPane.margin>
+                        </GridPane>
+                     </children>
+                     <effect>
+                        <Glow level="0.0">
+                           <input>
+                              <Glow level="0.0" />
+                           </input>
+                        </Glow>
+                     </effect>
+                  </StackPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <StackPane fx:id="microcosmos" layoutX="234.0" layoutY="-1.0" onMousePressed="#gotoAction2" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fx:id="camView" fitHeight="480.0" fitWidth="640.0" opacity="0.9" pickOnBounds="true" preserveRatio="true" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#97999a" height="480.0" layoutX="214.0" opacity="0.3" stroke="BLACK" strokeType="INSIDE" width="640.0" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </StackPane>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>

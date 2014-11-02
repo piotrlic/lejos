@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
 
 import com.tomtom.lejos.SocketClient;
@@ -101,6 +102,13 @@ public class Model {
 		socketSender.sendMessage("GOTO:" + x + "," + y);
 	}
 
+	public void gotoAction(double x, double y, Bounds boundsInLocal) {
+		double multiply = 1.0;
+		double xCalibrated = x*multiply;
+		double yCalibrated = y*multiply;
+		System.out.println("x = " + xCalibrated + "  ,  y = " + yCalibrated);
+	}
+	
 	public ObservableValue<Color> getColorPresenter() {
 		return colorPresenter;
 	}
@@ -112,5 +120,6 @@ public class Model {
 			colorPresenter.setValue(Color.RED);
 		}
 	}
+
 
 }
