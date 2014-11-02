@@ -21,32 +21,42 @@
       </ImageView>
       <AnchorPane>
          <children>
-            <AnchorPane visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <AnchorPane layoutY="48.0" prefHeight="323.0" prefWidth="250.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
                <children>
-                  <TextField layoutY="28.0" prefHeight="31.0" prefWidth="50.0" fx:id="xTextField">
+                  <TextField layoutY="28.0" prefHeight="31.0" prefWidth="50.0" visible="false" fx:id="xTextField">
                      <effect>
                         <InnerShadow choke="0.23" color="#838383" height="40.0" radius="19.5" width="40.0" />
                      </effect>
                   </TextField>
-                  <Label layoutX="18.0" text="X" textFill="WHITE">
+                  <Label layoutX="18.0" text="X" textFill="WHITE" visible="false">
                      <font>
                         <Font name="Calibri" size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="91.0" text="Y" textFill="WHITE">
+                  <Label layoutX="91.0" text="Y" textFill="WHITE" visible="false">
                      <font>
                         <Font name="Calibri" size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="yTextField" layoutX="72.0" layoutY="28.0" prefHeight="31.0" prefWidth="50.0">
+                  <TextField fx:id="yTextField" layoutX="72.0" layoutY="28.0" prefHeight="31.0" prefWidth="50.0" visible="false">
                      <effect>
                         <InnerShadow choke="0.23" color="#838383" height="40.0" radius="19.5" width="40.0" />
                      </effect>
                   </TextField>
-                  <StackPane layoutX="10.0" layoutY="74.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#gotoAction" onMouseReleased="#releaseButtonEffect" prefHeight="36.0" prefWidth="78.0">
+                  <StackPane layoutX="10.0" layoutY="74.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#gotoAction" onMouseReleased="#releaseButtonEffect" prefHeight="36.0" prefWidth="78.0" visible="false">
                      <children>
                         <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="93.0" />
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Go To">
+                           <font>
+                              <Font name="Consolas Bold" size="24.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </StackPane>
+                  <StackPane layoutX="10.0" layoutY="126.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#gotoAction" onMouseReleased="#releaseButtonEffect" prefHeight="36.0" prefWidth="78.0">
+                     <children>
+                        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="126.0" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Camera 1">
                            <font>
                               <Font name="Consolas Bold" size="24.0" />
                            </font>
@@ -116,8 +126,8 @@
                <children>
                   <StackPane fx:id="microcosmos" layoutX="234.0" layoutY="-1.0" onMousePressed="#gotoAction2" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fx:id="camView" fitHeight="480.0" fitWidth="640.0" opacity="0.9" pickOnBounds="true" preserveRatio="true" />
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#97999a" height="480.0" layoutX="214.0" opacity="0.3" stroke="BLACK" strokeType="INSIDE" width="640.0" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ImageView fx:id="camView" fitHeight="480.0" fitWidth="640.0" opacity="0.9" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </StackPane>
                </children>
