@@ -17,7 +17,7 @@ public class HelloCommand implements Command {
 			context.getEV3IRSensor().getDistanceMode().fetchSample(sample, 0);
 			distance = sample[0];
 			System.out.println(distance);
-			Thread.sleep(1000);
+			Thread.sleep(300);
 		}
 		//ROBOT ROTATION
 		Thread.sleep(2000);
@@ -36,6 +36,9 @@ public class HelloCommand implements Command {
 		context.getFlagMotor().rotate(20);
 		Thread.sleep(1000);
 		context.getFlagMotor().rotate(90);
+		Thread.sleep(3000);
+		context.getFlagMotor().setSpeed(70);
+		context.getFlagMotor().rotate(-90);
 		Button.LEDPattern(0);
 		return null;
 	}

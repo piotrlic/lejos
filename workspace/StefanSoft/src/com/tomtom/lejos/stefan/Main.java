@@ -25,7 +25,7 @@ public class Main {
 	public static final double DEGREE = 5.77;
 //	public static final double DEGREE = 5.27;
 
-	private static final int TIMEOUT = 300000;
+	private static final int TIMEOUT = Integer.MAX_VALUE;
 	private static String lastColorId = "-1";
 	private static SocketPortPool pool = new SocketPortPool();
 	private static BrickContext context = new BrickContext();
@@ -35,13 +35,13 @@ public class Main {
 		
 		CommandsProvider commandProvider = prepareCommands();
 
+		runColorDetector().start();
+		
+		SocketServer server = new SocketServer(6667, TIMEOUT);
+		server.connect();
 		Command command = commandProvider.getCommand(CommandName.HELLO);
 		command.executeCommand(context);
 		
-		runColorDetector().start();
-		
-		SocketServer server = new SocketServer(pool.getPort(), TIMEOUT);
-		server.connect();
 		while (true) {
 			try {
 				Thread.sleep(1000);
@@ -94,7 +94,7 @@ public class Main {
 			public void run() {
 				try {
 					Command command = new PickColorCommand();
-					SocketServer server = new SocketServer(pool.getPort(), TIMEOUT);
+					SocketServer server = new SocketServer(6666, TIMEOUT);
 					server.connect();
 					while (true) {
 						Thread.sleep(100);
@@ -102,6 +102,7 @@ public class Main {
 //						if ("7".equals(messageToSend)) {
 //							(new StopCommand()).executeCommand(context);
 //						}
+						System.out.println("Color det = "+messageToSend);
 						if (!lastColorId.equals(messageToSend)) {
 							server.send(messageToSend);
 						}

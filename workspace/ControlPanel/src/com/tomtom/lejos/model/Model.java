@@ -24,13 +24,13 @@ public class Model {
 
 //	public Model(String serverName, int port) throws IOException {
 	public Model() throws IOException {
-		socketListener = new SocketClient("192.168.1.7", 6666);
+		/*socketListener = new SocketClient("192.168.1.9", 6666);
 		socketListener.connect();
-		socketSender = new SocketClient("192.168.1.7", 6667);
-		socketSender.connect();
+		socketSender = new SocketClient("192.168.1.9", 6667);
+		socketSender.connect();*/
 		colorPresenterMap = createColorMap();
 		colorPresenter = new SimpleObjectProperty<Color>(Color.WHITE);
-		startColorReciving();
+		//startColorReciving();
 	}
 
 	private Map<String, Color> createColorMap() {
@@ -104,13 +104,14 @@ public class Model {
 		socketSender.sendMessage("GOTO:" + x + "," + y);
 	}
 
-	public void gotoAction(double x, double y, Bounds boundsInLocal) {
+	public void gotoAction(double x, double y, Bounds boundsInLocal) throws NumberFormatException, IOException {
 		double xCalibrated = (x - boundsInLocal.getWidth()/2.0)/oneCmInPixels;
-		double yCalibrated = (y - boundsInLocal.getHeight()/2.0)/oneCmInPixels;
+		double yCalibrated = (-1)*(y - boundsInLocal.getHeight()/2.0)/oneCmInPixels;
 		System.out.println("clicked");
 		System.out.println("x = " + x + "  ,  y = " + y);
 		System.out.println("calibrated");
 		System.out.println("x = " + xCalibrated + "  ,  y = " + yCalibrated);
+		gotoAction(Double.toString(xCalibrated), Double.toString(yCalibrated));
 	}
 	
 	public ObservableValue<Color> getColorPresenter() {
@@ -131,7 +132,7 @@ public class Model {
 		double yDiff = calibrationSecondPoint.getY() - calibrationFirstPoint.getY();
 		
 		double distance = Math.sqrt(xDiff*xDiff + yDiff*yDiff);
-		oneCmInPixels = distance/10.0;
+		oneCmInPixels = distance/100.0;
 		System.out.println(oneCmInPixels);
 	}
 

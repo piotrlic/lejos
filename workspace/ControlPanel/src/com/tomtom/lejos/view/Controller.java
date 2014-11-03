@@ -78,7 +78,7 @@ public class Controller {
 
 		this.colorPresenter.setEffect(colorPresenterEffect);
 		this.colorPresenter.fillProperty().bind(color);
-
+		Webcam.setHandleTermSignal(true);
 		cameraThread = createCameraThread(0);
 		cameraThread.start();
 	}
@@ -117,14 +117,14 @@ public class Controller {
 					+ xTextField.getText() + "  ,  " + yTextField.getText());
 		}
 	}
-	
+
 	private int calibrationClickCount = 0;
 	private boolean switchCalibrationMode = false;
 	private Point2D calibrationFirstPoint = null;
 	private Point2D calibrationSecondPoint = null;
 
 	@FXML
-	public void gotoAction2(MouseEvent mouseEvent) {
+	public void gotoAction2(MouseEvent mouseEvent) throws NumberFormatException, IOException {
 		if (switchCalibrationMode) {
 			calibrationClickCount++;
 			if (calibrationClickCount == 1) {
@@ -132,25 +132,26 @@ public class Controller {
 				double y = mouseEvent.getY();
 				calibrationFirstPoint = new Point2D(x, y);
 			}
-			if (calibrationClickCount > 1 ) {
+			if (calibrationClickCount > 1) {
 				switchCalibrationMode = false;
 				calibrationClickCount = 0;
 				double x = mouseEvent.getX();
 				double y = mouseEvent.getY();
 				calibrationSecondPoint = new Point2D(x, y);
-				model.calculateCalbration(calibrationFirstPoint, calibrationSecondPoint);
+				model.calculateCalbration(calibrationFirstPoint,
+						calibrationSecondPoint);
 				calibrationButton.setEffect(null);
 				microcosmos.setEffect(null);
 			}
 		} else {
 			Bounds boundsInLocal = microcosmos.getBoundsInLocal();
 			Bounds boundsInParent = microcosmos.getBoundsInParent();
-//			System.out.println("boundsInLocal = " + boundsInLocal);
-//			System.out.println("boundsInParent = " + boundsInParent);
-			model.gotoAction(mouseEvent.getX(), mouseEvent.getY(), boundsInLocal);
+			// System.out.println("boundsInLocal = " + boundsInLocal);
+			// System.out.println("boundsInParent = " + boundsInParent);
+			model.gotoAction(mouseEvent.getX(), mouseEvent.getY(),
+					boundsInLocal);
 		}
 	}
-	
 
 	@FXML
 	public void setPressedButtonEffect(MouseEvent mouseEvent) {
@@ -181,26 +182,29 @@ public class Controller {
 		Node target = (Node) mouseEvent.getTarget();
 		target.setEffect(null);
 	}
-	
+
 	@FXML
 	public void switchCamera(MouseEvent mouseEvent) {
 		setPressedButtonEffect(mouseEvent);
 		String camera1text = "Camera 1";
 		String camera2text = "Camera 2";
-		if (camera1text.equals(cameraLabel)) {
+		if (camera1text.equals(cameraLabel.getText())) {
 			cameraLabel.setText(camera2text);
+			handleClose(webcam);
 			cameraThread.interrupt();
+			
 			cameraThread = createCameraThread(1);
 			cameraThread.start();
 		} else {
 			cameraLabel.setText(camera1text);
+			handleClose(webcam);
 			cameraThread.interrupt();
 			cameraThread = createCameraThread(0);
 			cameraThread.start();
 		}
-		
+
 	}
-	
+
 	@FXML
 	public void calibrationMode(MouseEvent mouseEvent) {
 		setPressedButtonEffect(mouseEvent);
@@ -212,31 +216,38 @@ public class Controller {
 		dropShadow.setSpread(0.6);
 		microcosmos.setEffect(dropShadow);
 	}
-	
+
 	private Thread createCameraThread(final int cameraIndex) {
 		Task<Void> task = new Task<Void>() {
+
 			@Override
 			protected Void call() throws Exception {
 
-				webcam = Webcam.getWebcams().get(cameraIndex);
-				webcam.setViewSize(new Dimension(640, 480));
-//				webcam.setViewSize(new Dimension(1280, 720));
-				webcam.open();
+				Webcam webcam2 = Webcam.getWebcams().get(cameraIndex);
+
+				webcam2.setViewSize(new Dimension(640, 480));
+				// webcam.setViewSize(new Dimension(1280, 720));
+				webcam2.open();
+				webcam = webcam2;
 				try {
-				while (webcam.isOpen()) {
-					BufferedImage image = webcam.getImage();
-					final WritableImage imagefx = SwingFXUtils.toFXImage(image,
-							null);
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
-							camView.setImage(imagefx);
+					while (webcam2.isOpen()) {
+						BufferedImage image = webcam2.getImage();
+						if (image == null) {
+							continue;
 						}
-					});
-				};
-				}
-				finally {
-					webcam.close();
+						final WritableImage imagefx = SwingFXUtils.toFXImage(
+								image, null);
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								camView.setImage(imagefx);
+							}
+						});
+					};
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				} finally {
+					handleClose(webcam2);
 				}
 				return null;
 			}
@@ -245,7 +256,7 @@ public class Controller {
 		thread.setDaemon(true);
 		return thread;
 	}
-
+	
 	private DropShadow createColorPresenterEffect(ObservableValue<Color> color) {
 		DropShadow presentEffect = new DropShadow();
 		presentEffect.setBlurType(BlurType.GAUSSIAN);
@@ -271,5 +282,13 @@ public class Controller {
 		innerShadow.setInput(enterEffect);
 		return innerShadow;
 	}
-
+	
+	public void handleClose(Webcam webcam2) {
+		System.out.println("cam is closing after close request!!");
+		if (webcam2 != null) {
+			System.out.println("close camera in thread's finally");
+			//webcam2.setViewSize(defaultDimantion);
+			webcam2.close();
+		}
+	}
 }
