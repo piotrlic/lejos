@@ -8,8 +8,10 @@ import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
@@ -20,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
@@ -50,9 +53,13 @@ public class Controller {
 	@FXML
 	private Shape colorPresenter;
 	@FXML
-	private Pane microcosmos;
+	private StackPane microcosmos;
 	@FXML
 	private Text cameraLabel;
+	@FXML
+	private Text calibLabel;
+	@FXML
+	private StackPane calibrationButton;
 
 	private Glow enterEffect;
 	private InnerShadow pressedEffect;
@@ -111,13 +118,37 @@ public class Controller {
 		}
 	}
 	
+	private int calibrationClickCount = 0;
+	private boolean switchCalibrationMode = false;
+	private Point2D calibrationFirstPoint = null;
+	private Point2D calibrationSecondPoint = null;
+
 	@FXML
 	public void gotoAction2(MouseEvent mouseEvent) {
-		Bounds boundsInLocal = microcosmos.getBoundsInLocal();
-		Bounds boundsInParent = microcosmos.getBoundsInParent();
-		System.out.println("boundsInLocal = " + boundsInLocal);
-		System.out.println("boundsInParent = " + boundsInParent);
-		model.gotoAction(mouseEvent.getX(), mouseEvent.getY(), boundsInLocal);
+		if (switchCalibrationMode) {
+			calibrationClickCount++;
+			if (calibrationClickCount == 1) {
+				double x = mouseEvent.getX();
+				double y = mouseEvent.getY();
+				calibrationFirstPoint = new Point2D(x, y);
+			}
+			if (calibrationClickCount > 1 ) {
+				switchCalibrationMode = false;
+				calibrationClickCount = 0;
+				double x = mouseEvent.getX();
+				double y = mouseEvent.getY();
+				calibrationSecondPoint = new Point2D(x, y);
+				model.calculateCalbration(calibrationFirstPoint, calibrationSecondPoint);
+				calibrationButton.setEffect(null);
+				microcosmos.setEffect(null);
+			}
+		} else {
+			Bounds boundsInLocal = microcosmos.getBoundsInLocal();
+			Bounds boundsInParent = microcosmos.getBoundsInParent();
+//			System.out.println("boundsInLocal = " + boundsInLocal);
+//			System.out.println("boundsInParent = " + boundsInParent);
+			model.gotoAction(mouseEvent.getX(), mouseEvent.getY(), boundsInLocal);
+		}
 	}
 	
 
@@ -168,6 +199,18 @@ public class Controller {
 			cameraThread.start();
 		}
 		
+	}
+	
+	@FXML
+	public void calibrationMode(MouseEvent mouseEvent) {
+		setPressedButtonEffect(mouseEvent);
+		switchCalibrationMode = true;
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setColor(Color.TOMATO);
+		dropShadow.setWidth(120);
+		dropShadow.setHeight(120);
+		dropShadow.setSpread(0.6);
+		microcosmos.setEffect(dropShadow);
 	}
 	
 	private Thread createCameraThread(final int cameraIndex) {

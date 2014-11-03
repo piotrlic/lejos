@@ -53,10 +53,20 @@
                         </Text>
                      </children>
                   </StackPane>
-                  <StackPane layoutX="10.0" layoutY="126.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#gotoAction" onMouseReleased="#releaseButtonEffect" prefHeight="36.0" prefWidth="78.0">
+                  <StackPane layoutX="10.0" layoutY="126.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#switchCamera" onMouseReleased="#releaseButtonEffect" prefHeight="36.0" prefWidth="78.0">
                      <children>
-                        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="126.0" />
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Camera 1">
+                        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" mouseTransparent="true" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="126.0" />
+                        <Text fx:id="cameraLabel" fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Camera 1">
+                           <font>
+                              <Font name="Consolas Bold" size="24.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </StackPane>
+                  <StackPane fx:id="calibrationButton" layoutX="10.0" layoutY="176.0" onMouseEntered="#setEnterButtonEffect" onMousePressed="#calibrationMode" prefHeight="36.0" prefWidth="78.0">
+                     <children>
+                        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" mouseTransparent="true" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="126.0" />
+                        <Text fx:id="calibLabel" fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Calib">
                            <font>
                               <Font name="Consolas Bold" size="24.0" />
                            </font>
@@ -124,7 +134,7 @@
             </AnchorPane>
             <AnchorPane layoutX="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <StackPane fx:id="microcosmos" layoutX="234.0" layoutY="-1.0" onMousePressed="#gotoAction2" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <StackPane fx:id="microcosmos" layoutX="234.0" layoutY="-1.0" onMousePressed="#gotoAction2" style="-fx-stroke: tomato; -fx-stroke-width: 30;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#97999a" height="480.0" layoutX="214.0" opacity="0.3" stroke="BLACK" strokeType="INSIDE" width="640.0" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <ImageView fx:id="camView" fitHeight="480.0" fitWidth="640.0" opacity="0.9" pickOnBounds="true" preserveRatio="true" />

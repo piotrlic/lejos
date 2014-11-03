@@ -9,6 +9,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 import com.tomtom.lejos.SocketClient;
@@ -19,6 +20,7 @@ public class Model {
 	private SocketClient socketSender;
 	private ObjectProperty<Color> colorPresenter;
 	private Map<String, Color> colorPresenterMap;
+	private static double oneCmInPixels;
 
 //	public Model(String serverName, int port) throws IOException {
 	public Model() throws IOException {
@@ -103,9 +105,11 @@ public class Model {
 	}
 
 	public void gotoAction(double x, double y, Bounds boundsInLocal) {
-		double multiply = 1.0;
-		double xCalibrated = x*multiply;
-		double yCalibrated = y*multiply;
+		double xCalibrated = (x - boundsInLocal.getWidth()/2.0)/oneCmInPixels;
+		double yCalibrated = (y - boundsInLocal.getHeight()/2.0)/oneCmInPixels;
+		System.out.println("clicked");
+		System.out.println("x = " + x + "  ,  y = " + y);
+		System.out.println("calibrated");
 		System.out.println("x = " + xCalibrated + "  ,  y = " + yCalibrated);
 	}
 	
@@ -119,6 +123,16 @@ public class Model {
 		} else {
 			colorPresenter.setValue(Color.RED);
 		}
+	}
+
+	public void calculateCalbration(Point2D calibrationFirstPoint,
+			Point2D calibrationSecondPoint) {
+		double xDiff = calibrationSecondPoint.getX() - calibrationFirstPoint.getX();
+		double yDiff = calibrationSecondPoint.getY() - calibrationFirstPoint.getY();
+		
+		double distance = Math.sqrt(xDiff*xDiff + yDiff*yDiff);
+		oneCmInPixels = distance/10.0;
+		System.out.println(oneCmInPixels);
 	}
 
 
