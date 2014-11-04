@@ -62,6 +62,8 @@ public class Controller {
 	private Text calibLabel;
 	@FXML
 	private StackPane calibrationButton;
+	@FXML
+	private StackPane connectionButton;
 
 	private Glow enterEffect;
 	private InnerShadow pressedEffect;
@@ -221,6 +223,12 @@ public class Controller {
 		calibratingCenter.setVisible(true);
 	}
 
+	@FXML
+	public void connectPlus(MouseEvent mouseEvent) {
+		removeAllButtonsEffects(mouseEvent);
+		model.connectPlus();
+	}
+	
 	private Thread createCameraThread(final int cameraIndex) {
 		Task<Void> task = new Task<Void>() {
 

@@ -73,6 +73,16 @@
                         </Text>
                      </children>
                   </StackPane>
+                  <StackPane fx:id="connectionButton" layoutX="9.0" layoutY="74.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#connectPlus" onMouseReleased="#releaseButtonEffect" prefHeight="36.0" prefWidth="78.0">
+                     <children>
+                        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" mouseTransparent="true" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="126.0" />
+                        <Text fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Connect+">
+                           <font>
+                              <Font name="Consolas Bold" size="24.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </StackPane>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="25.0" layoutY="19.0" prefHeight="250.0" prefWidth="221.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">

@@ -21,16 +21,12 @@ public class Model {
 	private ObjectProperty<Color> colorPresenter;
 	private Map<String, Color> colorPresenterMap;
 	private static double oneCmInPixels;
+	private static String serverIp = "10.0.1.1";
 
-//	public Model(String serverName, int port) throws IOException {
+	// public Model(String serverName, int port) throws IOException {
 	public Model() throws IOException {
-		/*socketListener = new SocketClient("192.168.1.9", 6666);
-		socketListener.connect();
-		socketSender = new SocketClient("192.168.1.9", 6667);
-		socketSender.connect();*/
 		colorPresenterMap = createColorMap();
 		colorPresenter = new SimpleObjectProperty<Color>(Color.WHITE);
-		//startColorReciving();
 	}
 
 	private Map<String, Color> createColorMap() {
@@ -59,9 +55,10 @@ public class Model {
 			public void run() {
 				try {
 					while (true) {
-						Thread.sleep(200);
+						Thread.sleep(100);
 						String colorKey = socketListener.receive();
-						final Color currentColor = colorPresenterMap.get(colorKey);
+						final Color currentColor = colorPresenterMap
+								.get(colorKey);
 						if (!colorPresenter.getValue().equals(currentColor)) {
 							Platform.runLater(new Runnable() {
 								@Override
@@ -104,16 +101,19 @@ public class Model {
 		socketSender.sendMessage("GOTO:" + x + "," + y);
 	}
 
-	public void gotoAction(double x, double y, Bounds boundsInLocal) throws NumberFormatException, IOException {
-		double xCalibrated = (x - boundsInLocal.getWidth()/2.0)/oneCmInPixels;
-		double yCalibrated = (-1)*(y - boundsInLocal.getHeight()/2.0)/oneCmInPixels;
+	public void gotoAction(double x, double y, Bounds boundsInLocal)
+			throws NumberFormatException, IOException {
+		double xCalibrated = (x - boundsInLocal.getWidth() / 2.0)
+				/ oneCmInPixels;
+		double yCalibrated = (-1) * (y - boundsInLocal.getHeight() / 2.0)
+				/ oneCmInPixels;
 		System.out.println("clicked");
 		System.out.println("x = " + x + "  ,  y = " + y);
 		System.out.println("calibrated");
 		System.out.println("x = " + xCalibrated + "  ,  y = " + yCalibrated);
 		gotoAction(Double.toString(xCalibrated), Double.toString(yCalibrated));
 	}
-	
+
 	public ObservableValue<Color> getColorPresenter() {
 		return colorPresenter;
 	}
@@ -128,13 +128,22 @@ public class Model {
 
 	public void calculateCalbration(Point2D calibrationFirstPoint,
 			Point2D calibrationSecondPoint) {
-		double xDiff = calibrationSecondPoint.getX() - calibrationFirstPoint.getX();
-		double yDiff = calibrationSecondPoint.getY() - calibrationFirstPoint.getY();
-		
-		double distance = Math.sqrt(xDiff*xDiff + yDiff*yDiff);
-		oneCmInPixels = distance/100.0;
+		double xDiff = calibrationSecondPoint.getX()
+				- calibrationFirstPoint.getX();
+		double yDiff = calibrationSecondPoint.getY()
+				- calibrationFirstPoint.getY();
+
+		double distance = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+		oneCmInPixels = distance / 10.0;
 		System.out.println(oneCmInPixels);
 	}
 
+	public void connectPlus() throws IOException {
+		socketListener = new SocketClient(serverIp, 6666);
+		socketListener.connect();
+		socketSender = new SocketClient(serverIp, 6667);
+		socketSender.connect();
+		startColorReciving();
+	}
 
 }
