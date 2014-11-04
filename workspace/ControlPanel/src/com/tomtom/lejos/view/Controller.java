@@ -53,6 +53,8 @@ public class Controller {
 	@FXML
 	private Shape colorPresenter;
 	@FXML
+	private Shape calibratingCenter;
+	@FXML
 	private StackPane microcosmos;
 	@FXML
 	private Text cameraLabel;
@@ -142,6 +144,7 @@ public class Controller {
 						calibrationSecondPoint);
 				calibrationButton.setEffect(null);
 				microcosmos.setEffect(null);
+				calibratingCenter.setVisible(false);
 			}
 		} else {
 			Bounds boundsInLocal = microcosmos.getBoundsInLocal();
@@ -215,6 +218,7 @@ public class Controller {
 		dropShadow.setHeight(120);
 		dropShadow.setSpread(0.6);
 		microcosmos.setEffect(dropShadow);
+		calibratingCenter.setVisible(true);
 	}
 
 	private Thread createCameraThread(final int cameraIndex) {
