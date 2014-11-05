@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
@@ -69,7 +68,7 @@ public class Controller implements DistanceListener{
 	@FXML
 	private ScrollPane arrowsPane;
 	@FXML
-	private Label distanceLabel;
+	private Text distanceLabel;
 
 	private Glow enterEffect;
 	private InnerShadow pressedEffect;

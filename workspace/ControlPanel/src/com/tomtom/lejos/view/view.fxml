@@ -21,7 +21,7 @@
       </ImageView>
       <AnchorPane>
          <children>
-            <HBox layoutX="27.0" layoutY="820.0" spacing="10.0">
+            <HBox layoutX="25.0" layoutY="781.0" spacing="10.0">
                <children>
                   <StackPane layoutX="10.0" layoutY="126.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#switchCamera" onMouseReleased="#releaseButtonEffect" prefHeight="36.0" prefWidth="78.0">
                      <children>
@@ -70,9 +70,9 @@
                <content>
                   <StackPane layoutX="357.0" layoutY="37.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                      <children>
-                        <Circle fx:id="colorPresenter" fill="WHITE" layoutX="482.0" layoutY="612.0" opacity="0.5" radius="206.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0">
+                        <Circle fx:id="colorPresenter" fill="WHITE" layoutX="482.0" layoutY="612.0" opacity="0.5" radius="180.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0">
                            <effect>
-                              <DropShadow blurType="GAUSSIAN" color="WHITE" height="120.0" radius="59.5" spread="0.67" width="120.0" />
+                              <DropShadow blurType="GAUSSIAN" color="WHITE" height="210.0" radius="104.5" spread="0.72" width="210.0" />
                            </effect>
                            <StackPane.margin>
                               <Insets top="50.0" />
@@ -89,7 +89,7 @@
                   </StackPane>
                </content>
             </ScrollPane>
-            <Text fx:id="distanceLabel" fill="WHITE" layoutX="1172.0" layoutY="846.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance: " AnchorPane.leftAnchor="1172.0">
+            <Text fx:id="distanceLabel" fill="WHITE" layoutX="1174.0" layoutY="809.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance: " AnchorPane.leftAnchor="1174.0">
                <font>
                   <Font name="Calibri Bold" size="36.0" />
                </font>
@@ -103,7 +103,7 @@
          <children>
             <GridPane alignment="BOTTOM_CENTER">
                <children>
-                  <ImageView fx:id="leftButton1" fitHeight="36.0" fitWidth="36.0" layoutX="414.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#leftAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <ImageView fx:id="leftButton1" fitHeight="36.0" fitWidth="36.0" layoutX="414.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#leftAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" scaleX="1.3" scaleY="1.3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <image>
                         <Image url="@../../../../../resources/arrowButtonLeft.png" />
                      </image>
@@ -111,7 +111,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <ImageView fx:id="downButton1" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="87.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#downAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <ImageView fx:id="downButton1" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="87.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#downAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" scaleX="1.3" scaleY="1.3" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <image>
                         <Image url="@../../../../../resources/arrowButtonDown.png" />
                      </image>
@@ -119,7 +119,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <ImageView fx:id="upButton1" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="31.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#upAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <ImageView fx:id="upButton1" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="31.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#upAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" scaleX="1.3" scaleY="1.3" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
                         <Image url="@../../../../../resources/arrowButtonTop.png" />
                      </image>
@@ -127,7 +127,7 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <ImageView fx:id="rightButton1" fitHeight="36.0" fitWidth="36.0" layoutX="516.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#rightAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <ImageView fx:id="rightButton1" fitHeight="36.0" fitWidth="36.0" layoutX="516.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#rightAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" scaleX="1.3" scaleY="1.3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <image>
                         <Image url="@../../../../../resources/arrowButtonRight.png" />
                      </image>
