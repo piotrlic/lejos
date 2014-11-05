@@ -35,20 +35,12 @@ public class Main {
 			InterruptedException {
 		
 		CommandsProvider commandProvider = prepareCommands();
-
-// TEST
-		Command command = commandProvider.getCommand(CommandName.FOLLOW_PATH);
-		command.executeCommand(context);
-		//TEST END
-				
-		// TEST
-		command = commandProvider.getCommand(CommandName.FOLLOW_PATH);
-		command.executeCommand(context);
-		//TEST END
+		
+		runSensorsValuesPicking().start();
 		
 		SocketServer server = new SocketServer(6667, TIMEOUT);
 		server.connect();
-		command = commandProvider.getCommand(CommandName.HELLO);
+		Command command = commandProvider.getCommand(CommandName.HELLO);
 		command.executeCommand(context);
 		
 		while (true) {
