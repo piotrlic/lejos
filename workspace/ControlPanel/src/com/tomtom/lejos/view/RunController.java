@@ -26,6 +26,7 @@ public class RunController extends Application{
 		Parent sceneGraph = createSceneGraph(model);
 		Scene scene = new Scene(sceneGraph);
 		mainStage.setScene(scene);
+		mainStage.setFullScreen(true);
 		mainStage.show();
 		
 	}
