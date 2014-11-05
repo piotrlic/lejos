@@ -33,7 +33,7 @@
                         </Text>
                      </children>
                   </StackPane>
-                  <StackPane fx:id="calibrationButton" layoutX="10.0" layoutY="176.0" onMouseEntered="#setEnterButtonEffect" onMousePressed="#calibrationMode" prefHeight="36.0" prefWidth="78.0">
+                  <StackPane fx:id="calibrationButton" layoutX="10.0" layoutY="176.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#calibrationMode" prefHeight="36.0" prefWidth="78.0">
                      <children>
                         <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" mouseTransparent="true" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="126.0" />
                         <Text fx:id="calibLabel" fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Calib">
@@ -145,12 +145,6 @@
                   <RowConstraints minHeight="54.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="54.0" vgrow="SOMETIMES" />
                </rowConstraints>
-               <StackPane.margin>
-                  <Insets />
-               </StackPane.margin>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
             </GridPane>
          </children>
          <StackPane.margin>

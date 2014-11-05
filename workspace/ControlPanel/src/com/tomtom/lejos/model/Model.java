@@ -2,6 +2,7 @@ package com.tomtom.lejos.model;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ public class Model {
 	public Model() throws IOException {
 		colorPresenterMap = createColorMap();
 		colorPresenter = new SimpleObjectProperty<Color>(Color.WHITE);
+		distanceListenerList = new LinkedList<>();
 	}
 
 	private Map<String, Color> createColorMap() {
