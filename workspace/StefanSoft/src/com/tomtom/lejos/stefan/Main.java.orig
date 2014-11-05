@@ -36,15 +36,16 @@ public class Main {
 		
 		CommandsProvider commandProvider = prepareCommands();
 
-// TEST
+<<<<<<< HEAD
+		runSensorsValuesPicking().start();
+=======
+//		runColorDetector().start();
+		
+		// TEST
 		Command command = commandProvider.getCommand(CommandName.FOLLOW_PATH);
 		command.executeCommand(context);
 		//TEST END
-				
-		// TEST
-		command = commandProvider.getCommand(CommandName.FOLLOW_PATH);
-		command.executeCommand(context);
-		//TEST END
+>>>>>>> follow path command
 		
 		SocketServer server = new SocketServer(6667, TIMEOUT);
 		server.connect();
