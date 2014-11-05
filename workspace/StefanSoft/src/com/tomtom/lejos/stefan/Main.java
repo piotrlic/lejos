@@ -16,18 +16,18 @@ import com.tomtom.lejos.stefan.command.FireCommand;
 import com.tomtom.lejos.stefan.command.ForwardCommand;
 import com.tomtom.lejos.stefan.command.GotoCommand;
 import com.tomtom.lejos.stefan.command.HelloCommand;
-import com.tomtom.lejos.stefan.command.PickColorCommand;
+import com.tomtom.lejos.stefan.command.PickSensorsValuesCommand;
 import com.tomtom.lejos.stefan.command.StopCommand;
 import com.tomtom.lejos.stefan.command.TurnLeftCommand;
 import com.tomtom.lejos.stefan.command.TurnRightCommand;
 
 public class Main {
+	//TODO: sprawdziæ k¹t czy dobry
 	public static final double DEGREE = 5.77;
 //	public static final double DEGREE = 5.27;
 
 	private static final int TIMEOUT = Integer.MAX_VALUE;
 	private static String lastColorId = "-1";
-	private static SocketPortPool pool = new SocketPortPool();
 	private static BrickContext context = new BrickContext();
 
 	public static void main(String[] args) throws IOException,
@@ -35,7 +35,7 @@ public class Main {
 		
 		CommandsProvider commandProvider = prepareCommands();
 
-		runColorDetector().start();
+		runSensorsValuesPicking().start();
 		
 		SocketServer server = new SocketServer(6667, TIMEOUT);
 		server.connect();
@@ -88,20 +88,17 @@ public class Main {
 		return commandProvider;
 	}
 
-	public static Thread runColorDetector() {
+	public static Thread runSensorsValuesPicking() {
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					Command command = new PickColorCommand();
+					Command command = new PickSensorsValuesCommand();
 					SocketServer server = new SocketServer(6666, TIMEOUT);
 					server.connect();
 					while (true) {
-						Thread.sleep(100);
+						Thread.sleep(200);
 						String messageToSend = command.executeCommand(context);
-//						if ("7".equals(messageToSend)) {
-//							(new StopCommand()).executeCommand(context);
-//						}
 						System.out.println("Color det = "+messageToSend);
 						if (!lastColorId.equals(messageToSend)) {
 							server.send(messageToSend);

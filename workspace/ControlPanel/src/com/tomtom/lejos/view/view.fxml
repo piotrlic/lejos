@@ -9,9 +9,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="buttonsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="963.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tomtom.lejos.view.Controller">
+<StackPane fx:id="buttonsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tomtom.lejos.view.Controller">
    <children>
-      <ImageView fitHeight="672.0" fitWidth="1075.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="1107.0" fitWidth="1771.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../resources/bluedoor_1920x1200.jpg" />
          </image>
@@ -21,44 +21,14 @@
       </ImageView>
       <AnchorPane>
          <children>
-            <AnchorPane layoutY="48.0" prefHeight="323.0" prefWidth="250.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
+            <HBox layoutX="27.0" layoutY="820.0" spacing="10.0">
                <children>
-                  <TextField layoutY="28.0" prefHeight="31.0" prefWidth="50.0" visible="false" fx:id="xTextField">
-                     <effect>
-                        <InnerShadow choke="0.23" color="#838383" height="40.0" radius="19.5" width="40.0" />
-                     </effect>
-                  </TextField>
-                  <Label layoutX="18.0" text="X" textFill="WHITE" visible="false">
-                     <font>
-                        <Font name="Calibri" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="91.0" text="Y" textFill="WHITE" visible="false">
-                     <font>
-                        <Font name="Calibri" size="24.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="yTextField" layoutX="72.0" layoutY="28.0" prefHeight="31.0" prefWidth="50.0" visible="false">
-                     <effect>
-                        <InnerShadow choke="0.23" color="#838383" height="40.0" radius="19.5" width="40.0" />
-                     </effect>
-                  </TextField>
-                  <StackPane layoutX="10.0" layoutY="74.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#gotoAction" onMouseReleased="#releaseButtonEffect" prefHeight="36.0" prefWidth="78.0" visible="false">
-                     <children>
-                        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="93.0" />
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Go To">
-                           <font>
-                              <Font name="Consolas Bold" size="24.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </StackPane>
                   <StackPane layoutX="10.0" layoutY="126.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#switchCamera" onMouseReleased="#releaseButtonEffect" prefHeight="36.0" prefWidth="78.0">
                      <children>
                         <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" mouseTransparent="true" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="126.0" />
                         <Text fx:id="cameraLabel" fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Camera 1">
                            <font>
-                              <Font name="Consolas Bold" size="24.0" />
+                              <Font name="Calibri Bold" size="24.0" />
                            </font>
                         </Text>
                      </children>
@@ -68,7 +38,7 @@
                         <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" mouseTransparent="true" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="126.0" />
                         <Text fx:id="calibLabel" fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Calib">
                            <font>
-                              <Font name="Consolas Bold" size="24.0" />
+                              <Font name="Calibri Bold" size="24.0" />
                            </font>
                         </Text>
                      </children>
@@ -78,59 +48,36 @@
                         <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#a0a0a0" height="36.0" mouseTransparent="true" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="126.0" />
                         <Text fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Connect+">
                            <font>
-                              <Font name="Consolas Bold" size="24.0" />
+                              <Font name="Calibri Bold" size="24.0" />
                            </font>
                         </Text>
                      </children>
                   </StackPane>
                </children>
-            </AnchorPane>
-            <AnchorPane layoutX="25.0" layoutY="19.0" prefHeight="250.0" prefWidth="221.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+            </HBox>
+            <AnchorPane layoutX="25.0" scaleX="1.5" scaleY="1.5" AnchorPane.leftAnchor="480.0" AnchorPane.rightAnchor="480.0" AnchorPane.topAnchor="140.0">
                <children>
-                  <StackPane layoutX="357.0" layoutY="37.0" prefHeight="250.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                  <StackPane fx:id="microcosmos" layoutX="234.0" layoutY="-1.0" onMousePressed="#gotoAction2" style="-fx-stroke: tomato; -fx-stroke-width: 30;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Circle fx:id="colorPresenter" fill="WHITE" layoutX="482.0" layoutY="612.0" opacity="0.5" radius="90.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#97999a" height="480.0" layoutX="214.0" opacity="0.3" stroke="BLACK" strokeType="INSIDE" width="640.0" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ImageView fx:id="camView" fitHeight="480.0" fitWidth="640.0" opacity="0.9" pickOnBounds="true" preserveRatio="true" />
+                        <Circle fx:id="calibratingCenter" fill="TOMATO" opacity="0.7" radius="10.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                     </children>
+                  </StackPane>
+               </children>
+            </AnchorPane>
+            <ScrollPane fx:id="arrowsPane" hbarPolicy="NEVER" hmax="0.0" layoutX="340.0" layoutY="598.0" mouseTransparent="true" prefHeight="360.0" prefViewportHeight="300.0" prefViewportWidth="300.0" prefWidth="1000.0" vbarPolicy="NEVER" vmax="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0">
+               <content>
+                  <StackPane layoutX="357.0" layoutY="37.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                     <children>
+                        <Circle fx:id="colorPresenter" fill="WHITE" layoutX="482.0" layoutY="612.0" opacity="0.5" radius="206.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0">
                            <effect>
                               <DropShadow blurType="GAUSSIAN" color="WHITE" height="120.0" radius="59.5" spread="0.67" width="120.0" />
                            </effect>
-                        </Circle>
-                        <GridPane alignment="CENTER">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <ImageView fx:id="leftButton" fitHeight="36.0" fitWidth="36.0" layoutX="414.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#leftAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../../../../../resources/arrowButtonLeft.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="downButton" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="87.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#downAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../../../../../resources/arrowButtonDown.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="upButton" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="31.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#upAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../../../../../resources/arrowButtonTop.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="rightButton" fitHeight="36.0" fitWidth="36.0" layoutX="516.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#rightAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../../../../../resources/arrowButtonRight.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
                            <StackPane.margin>
-                              <Insets bottom="65.0" left="65.0" right="65.0" top="65.0" />
+                              <Insets top="50.0" />
                            </StackPane.margin>
-                        </GridPane>
+                        </Circle>
                      </children>
                      <effect>
                         <Glow level="0.0">
@@ -140,20 +87,75 @@
                         </Glow>
                      </effect>
                   </StackPane>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <StackPane fx:id="microcosmos" layoutX="234.0" layoutY="-1.0" onMousePressed="#gotoAction2" style="-fx-stroke: tomato; -fx-stroke-width: 30;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#97999a" height="480.0" layoutX="214.0" opacity="0.3" stroke="BLACK" strokeType="INSIDE" width="640.0" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <ImageView fx:id="camView" fitHeight="480.0" fitWidth="640.0" opacity="0.9" pickOnBounds="true" preserveRatio="true" />
-                        <Circle fx:id="calibratingCenter" fill="TOMATO" opacity="0.7" radius="10.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                     </children>
-                  </StackPane>
-               </children>
-            </AnchorPane>
+               </content>
+            </ScrollPane>
+            <Text fill="WHITE" layoutX="1172.0" layoutY="846.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance: " AnchorPane.leftAnchor="1172.0">
+               <font>
+                  <Font name="Calibri Bold" size="36.0" />
+               </font>
+               <effect>
+                  <Glow level="0.4" />
+               </effect>
+            </Text>
          </children>
+      </AnchorPane>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" StackPane.alignment="BOTTOM_CENTER">
+         <children>
+            <GridPane alignment="BOTTOM_CENTER">
+               <children>
+                  <ImageView fx:id="leftButton1" fitHeight="36.0" fitWidth="36.0" layoutX="414.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#leftAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../../../../../resources/arrowButtonLeft.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <ImageView fx:id="downButton1" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="87.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#downAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../../../../../resources/arrowButtonDown.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <ImageView fx:id="upButton1" fitHeight="36.0" fitWidth="36.0" layoutX="464.0" layoutY="31.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#upAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../../../../../resources/arrowButtonTop.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <ImageView fx:id="rightButton1" fitHeight="36.0" fitWidth="36.0" layoutX="516.0" layoutY="58.0" onMouseEntered="#setEnterButtonEffect" onMouseExited="#removeAllButtonsEffects" onMousePressed="#rightAction" onMouseReleased="#stopAction" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../../../../../resources/arrowButtonRight.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </ImageView>
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="54.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="54.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </GridPane>
+         </children>
+         <StackPane.margin>
+            <Insets bottom="20.0" />
+         </StackPane.margin>
       </AnchorPane>
    </children>
 </StackPane>

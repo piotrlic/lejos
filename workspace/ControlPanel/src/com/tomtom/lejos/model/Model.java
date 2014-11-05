@@ -2,6 +2,7 @@ package com.tomtom.lejos.model;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javafx.application.Platform;
@@ -20,6 +21,7 @@ public class Model {
 	private SocketClient socketSender;
 	private ObjectProperty<Color> colorPresenter;
 	private Map<String, Color> colorPresenterMap;
+	private List<DistanceListener> distanceListenerList;
 	private static double oneCmInPixels;
 	private static String serverIp = "10.0.1.1";
 
@@ -49,16 +51,19 @@ public class Model {
 		return colorMap;
 	}
 
-	private void startColorReciving() {
+	private void startColorDistanceReciving() {
 		Thread colorReciverThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					while (true) {
-						Thread.sleep(100);
-						String colorKey = socketListener.receive();
-						final Color currentColor = colorPresenterMap
-								.get(colorKey);
+						Thread.sleep(200);
+						String colorDistance = socketListener.receive();
+						String[] split = colorDistance.split(";");
+
+						final Color currentColor = colorPresenterMap.get(split[0]);
+						final String distance = split[1];
+						
 						if (!colorPresenter.getValue().equals(currentColor)) {
 							Platform.runLater(new Runnable() {
 								@Override
@@ -67,6 +72,14 @@ public class Model {
 								}
 							});
 						}
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								for (DistanceListener distanceListener : distanceListenerList) {
+									distanceListener.distanceNotify(distance);
+								}
+							}
+						});
 					}
 				} catch (IOException | InterruptedException e) {
 					e.printStackTrace();
@@ -143,7 +156,15 @@ public class Model {
 		socketListener.connect();
 		socketSender = new SocketClient(serverIp, 6667);
 		socketSender.connect();
-		startColorReciving();
+		startColorDistanceReciving();
+	}
+	
+	public void registerDistanceListener(DistanceListener distanceListener) {
+		distanceListenerList.add(distanceListener);
+	}
+	
+	public void removeDistanceListener(DistanceListener distanceListener) {
+		distanceListenerList.remove(distanceListener);
 	}
 
 }

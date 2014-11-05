@@ -8,11 +8,12 @@ import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -28,9 +29,10 @@ import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
 import com.github.sarxos.webcam.Webcam;
+import com.tomtom.lejos.model.DistanceListener;
 import com.tomtom.lejos.model.Model;
 
-public class Controller {
+public class Controller implements DistanceListener{
 
 	private Model model;
 
@@ -64,6 +66,10 @@ public class Controller {
 	private StackPane calibrationButton;
 	@FXML
 	private StackPane connectionButton;
+	@FXML
+	private ScrollPane arrowsPane;
+	@FXML
+	private Label distanceLabel;
 
 	private Glow enterEffect;
 	private InnerShadow pressedEffect;
@@ -74,14 +80,19 @@ public class Controller {
 
 	public void setModel(Model model) {
 		this.model = model;
-		ObservableValue<Color> color = model.getColorPresenter();
 
+		this.model.registerDistanceListener(this);
+		
+		ObservableValue<Color> color = model.getColorPresenter();
 		this.enterEffect = createEnterEffect();
 		this.pressedEffect = createPressedEffect();
 		this.colorPresenterEffect = createColorPresenterEffect(color);
-
 		this.colorPresenter.setEffect(colorPresenterEffect);
 		this.colorPresenter.fillProperty().bind(color);
+		
+		arrowsPane.getContent().setStyle("-fx-background-color: TRANSPARENT");
+		arrowsPane.setStyle("-fx-background-color: TRANSPARENT");
+		
 		Webcam.setHandleTermSignal(true);
 		cameraThread = createCameraThread(0);
 		cameraThread.start();
@@ -127,6 +138,7 @@ public class Controller {
 	private Point2D calibrationFirstPoint = null;
 	private Point2D calibrationSecondPoint = null;
 
+
 	@FXML
 	public void gotoAction2(MouseEvent mouseEvent) throws NumberFormatException, IOException {
 		if (switchCalibrationMode) {
@@ -150,7 +162,7 @@ public class Controller {
 			}
 		} else {
 			Bounds boundsInLocal = microcosmos.getBoundsInLocal();
-			Bounds boundsInParent = microcosmos.getBoundsInParent();
+//			Bounds boundsInParent = microcosmos.getBoundsInParent();
 			// System.out.println("boundsInLocal = " + boundsInLocal);
 			// System.out.println("boundsInParent = " + boundsInParent);
 			model.gotoAction(mouseEvent.getX(), mouseEvent.getY(),
@@ -224,7 +236,7 @@ public class Controller {
 	}
 
 	@FXML
-	public void connectPlus(MouseEvent mouseEvent) {
+	public void connectPlus(MouseEvent mouseEvent) throws IOException {
 		removeAllButtonsEffects(mouseEvent);
 		model.connectPlus();
 	}
@@ -236,7 +248,9 @@ public class Controller {
 			protected Void call() throws Exception {
 
 				Webcam webcam2 = Webcam.getWebcams().get(cameraIndex);
-
+				if (webcam2 == null) {
+					return null;
+				}
 				webcam2.setViewSize(new Dimension(640, 480));
 				// webcam.setViewSize(new Dimension(1280, 720));
 				webcam2.open();
@@ -302,5 +316,10 @@ public class Controller {
 			//webcam2.setViewSize(defaultDimantion);
 			webcam2.close();
 		}
+	}
+
+	@Override
+	public void distanceNotify(String distance) {
+		distanceLabel.setText("Distance: " + distance);
 	}
 }
