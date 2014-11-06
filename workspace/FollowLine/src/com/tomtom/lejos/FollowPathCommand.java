@@ -42,29 +42,33 @@ public class FollowPathCommand {
 			if (!firstRun) {
 				System.out.println("cumulate:" + cumulate);
 				int times = 0;
-				while (sample[0] > 0.3 && !cookieEaten) {
-					if (Math.abs(cumulate) > 0.08 && times > 3) {
-						times = 0;
-						turnRight = !turnRight;
-						cumulate = 0;
+				int correctionAngle = 20;
+				int angle = correctionAngle;
+				if (Math.abs(f) > 0.5 || sample[0] > 0.12) {
+					while (!cookieEaten) {
+						rightMotor.rotate(angle, true);
+						leftMotor.rotate(-angle);
+						float[] sampleAfterTurn = new float[redMode
+								.sampleSize()];
+						redMode.fetchSample(sampleAfterTurn, 0);
+		
+						if (sampleAfterTurn[0] > previousValue) {
+							angle += correctionAngle;
+							leftMotor.rotate(angle, true);
+							rightMotor.rotate(-angle);
+						}
+						redMode.fetchSample(sampleAfterTurn, 0);
+						if (sampleAfterTurn[0] <= previousValue) {
+							break;
+						}
+						angle += correctionAngle;
 					}
-					if (turnRight) {
-						rightMotor.rotate(10);
-					} else {
-						leftMotor.rotate(10);
-					}
-					redMode.fetchSample(sample, 0);
-					f = sample[0] - previousValue;
-					cumulate = cumulate + f;
-					System.out.println("cumulate il:" + cumulate);
-					System.out.println("val il=" + sample[0]);
-					previousValue = sample[0];
-					times++;
+
 				}
 			}
 			turnRight = true;
-			leftMotor.rotate(10, true);
-			rightMotor.rotate(10);
+			leftMotor.rotate(20, true);
+			rightMotor.rotate(20);
 			previousValue = sample[0];
 			firstRun = false;
 			System.out.println("val=" + sample[0]);
