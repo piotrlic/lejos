@@ -12,7 +12,7 @@ public class HelloCommand implements Command {
 
 		//WHITE UNTIL BOX IS OPEN
 		float distance = 0;
-		while(distance < 20) {
+		while(distance < 40) {
 			float[] sample = new float[context.getEV3IRSensor().sampleSize()];
 			context.getEV3IRSensor().getDistanceMode().fetchSample(sample, 0);
 			distance = sample[0];
@@ -35,10 +35,10 @@ public class HelloCommand implements Command {
 		}
 		context.getFlagMotor().rotate(20);
 		Thread.sleep(1000);
-		context.getFlagMotor().rotate(90);
+		/*context.getFlagMotor().rotate(90);
 		Thread.sleep(3000);
 		context.getFlagMotor().setSpeed(70);
-		context.getFlagMotor().rotate(-90);
+		context.getFlagMotor().rotate(-90);*/
 		Button.LEDPattern(0);
 		return null;
 	}
